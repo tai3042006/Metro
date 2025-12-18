@@ -38,6 +38,14 @@ public class Route {
      */
     public void Attribute2;
 
+    /**
+     * 
+     */
+    public TransportType transportType;
+
+
+
+
 
 
     /**

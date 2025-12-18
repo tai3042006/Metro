@@ -5,26 +5,34 @@ import java.util.*;
 /**
  * 
  */
-public class MonthlyTicket {
+public class ScheduleState {
 
     /**
      * Default constructor
      */
-    public MonthlyTicket() {
+    public ScheduleState() {
     }
 
     /**
      * 
      */
-    public YearMonth validMonth;
+    public void RUNNING;
+
+    /**
+     * 
+     */
+    public void DELAYED;
+
+    /**
+     * 
+     */
+    public void CANCELLED;
 
 
     /**
-     * @param time 
-     * @param station 
      * @return
      */
-    public boolean isValid(LocalDateTime time, Station station) {
+    public boolean isRunning() {
         // TODO implement here
         return false;
     }

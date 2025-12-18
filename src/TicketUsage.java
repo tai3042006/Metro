@@ -5,40 +5,35 @@ import java.util.*;
 /**
  * 
  */
-public class ScheduleDaily {
+public class TicketUsage {
 
     /**
      * Default constructor
      */
-    public ScheduleDaily() {
+    public TicketUsage() {
     }
 
     /**
      * 
      */
-    private LocalDate date;
+    private String usageId;
 
     /**
      * 
      */
-    private ScheduleCategory category;
+    private LocalDateTime usedTime;
 
     /**
      * 
      */
-    private boolean isActive;
-
-
-
-
+    public Station usedStation;
 
 
     /**
-     * @return
+     * 
      */
-    public boolean isAvailable() {
+    public void Operation1() {
         // TODO implement here
-        return false;
     }
 
 }

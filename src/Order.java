@@ -48,6 +48,10 @@ public class Order {
 
 
 
+
+
+
+
     /**
      * @return
      */
@@ -86,6 +90,14 @@ public class Order {
     public double getBalance() {
         // TODO implement here
         return 0.0d;
+    }
+
+    /**
+     * @return
+     */
+    public TreeMap<> revenueByDate() {
+        // TODO implement here
+        return null;
     }
 
 }

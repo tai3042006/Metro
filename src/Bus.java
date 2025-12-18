@@ -5,26 +5,23 @@ import java.util.*;
 /**
  * 
  */
-public class CustomerType {
+public class Bus {
 
     /**
      * Default constructor
      */
-    public CustomerType() {
+    public Bus() {
     }
 
     /**
      * 
      */
-    public void STUDENT;
+    public String licensePlate;
 
     /**
      * 
      */
-    public void WORKER;
-
-
-
+    public int capacity;
 
 
 }

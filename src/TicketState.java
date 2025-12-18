@@ -5,38 +5,44 @@ import java.util.*;
 /**
  * 
  */
-public class ScheduleDaily {
+public class TicketState {
 
     /**
      * Default constructor
      */
-    public ScheduleDaily() {
+    public TicketState() {
     }
 
     /**
      * 
      */
-    private LocalDate date;
+    public void BOOKED;
 
     /**
      * 
      */
-    private ScheduleCategory category;
+    public void Attribute1;
 
     /**
      * 
      */
-    private boolean isActive;
+    public void ACTIVE;
 
+    /**
+     * 
+     */
+    public void USED;
 
-
-
+    /**
+     * 
+     */
+    public void CANCELLED;
 
 
     /**
      * @return
      */
-    public boolean isAvailable() {
+    public boolean isUsable() {
         // TODO implement here
         return false;
     }

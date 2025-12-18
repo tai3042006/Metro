@@ -16,35 +16,52 @@ public class ScheduleDetail {
     /**
      * 
      */
-    public String date;
+    private LocalDate date;
 
     /**
      * 
      */
-    public LocalTime timeStart;
+    private LocalTime timeStart;
 
     /**
      * 
      */
-    public LocalTime timeEnd;
+    private LocalTime timeEnd;
 
     /**
      * 
      */
-    public train train;
+    private Vehicle vehicle;
 
     /**
      * 
      */
-    public route route;
+    private ScheduleState state;
 
 
 
     /**
-     * 
+     * @return
      */
-    public void Operation1() {
+    public LocalTime getTimeStart() {
         // TODO implement here
+        return null;
+    }
+
+    /**
+     * @return
+     */
+    public LocalTime getTimeEnd() {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @return
+     */
+    public boolean isRunning() {
+        // TODO implement here
+        return false;
     }
 
 }

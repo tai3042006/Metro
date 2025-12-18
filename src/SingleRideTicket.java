@@ -5,18 +5,33 @@ import java.util.*;
 /**
  * 
  */
-public class MonthlyTicket {
+public class SingleRideTicket {
 
     /**
      * Default constructor
      */
-    public MonthlyTicket() {
+    public SingleRideTicket() {
     }
 
     /**
      * 
      */
-    public YearMonth validMonth;
+    public LocalDate startDate;
+
+    /**
+     * 
+     */
+    public LocalDate endDate;
+
+    /**
+     * 
+     */
+    public Station originStation;
+
+    /**
+     * 
+     */
+    public Station destinationStation;
 
 
     /**

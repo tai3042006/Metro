@@ -5,12 +5,12 @@ import java.util.*;
 /**
  * 
  */
-public class Carriage {
+public class Transaction {
 
     /**
      * Default constructor
      */
-    public Carriage() {
+    public Transaction() {
     }
 
     /**
@@ -21,34 +21,36 @@ public class Carriage {
     /**
      * 
      */
-    public int NumberOfSeats;
+    public double amount;
 
     /**
      * 
      */
-    public int avaliableSeats;
-
-
-    /**
-     * 
-     */
-    public void reserveSeats() {
-        // TODO implement here
-    }
+    public LocalDateTime transactionDate;
 
     /**
      * 
      */
-    public void releaseSeats() {
-        // TODO implement here
-    }
+    public TransactionType type;
+
+    /**
+     * 
+     */
+    public String description;
+
+    /**
+     * 
+     */
+    public void get;
+
+
 
     /**
      * @return
      */
-    public int totalSeats() {
+    public String getDetails() {
         // TODO implement here
-        return 0;
+        return "";
     }
 
 }
