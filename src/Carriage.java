@@ -2,45 +2,30 @@
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
+
 public class Carriage {
-
-    /**
-     * Default constructor
-     */
     public Carriage() {
+    private  String id;
+    private int NumberOfSeats;
+    private  int avaliableSeats;
+    public Carriage()
+
     }
-
-    /**
-     * 
-     */
-    public String id;
-
-    /**
-     * 
-     */
-    public int NumberOfSeats;
-
-    /**
-     * 
-     */
-    public int avaliableSeats;
-
-
-    /**
-     * 
-     */
-    public void reserveSeats() {
-        // TODO implement here
+    public Carriage(String id, int NumberOfSeats, int avaliableSeats){
+        this.id = id;
+        this.NumberOfSeats = NumberOfSeats;
+        this.avaliableSeats = avaliableSeats;
     }
-
-    /**
-     * 
-     */
-    public void releaseSeats() {
-        // TODO implement here
+    public String getId(){
+        return id;
     }
-
+    public int getAvaliableSeats(){
+        return avaliableSeats;
+    }
+    public void setavaliableSeats(int avaliableSeats){
+        this.avaliableSeats = avaliableSeats;
+    }
+    public int totalSeats() {
+        return NumberOfSeats;
+}
 }
