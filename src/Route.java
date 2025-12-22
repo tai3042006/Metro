@@ -6,44 +6,10 @@ import java.util.*;
  * 
  */
 public class Route {
-
-    /**
-     * Default constructor
-     */
-    public Route() {
-    }
-
-    /**
-     * 
-     */
-    public String id;
-
-    /**
-     * 
-     */
-    public String name;
-
-    /**
-     * 
-     */
-    public LinkedList<RoutePart> routePartList;
-
-    /**
-     * 
-     */
-    public void Attribute1;
-
-    /**
-     * 
-     */
-    public void Attribute2;
-
-
-
-    /**
-     * @return
-     */
-    public Station getBeginStation() {
+    private String id;
+    private String name;
+    private LinkedList<RoutePart> routePartList;
+    private Station getBeginStation() {
         // TODO implement here
         return null;
     }
