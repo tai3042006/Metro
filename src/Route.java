@@ -8,26 +8,36 @@ import java.util.*;
 public class Route {
     private String id;
     private String name;
-    private LinkedList<RoutePart> routePartList;
-    private Station getBeginStation() {
-        // TODO implement here
-        return null;
+    private List<RoutePart> routePartList;
+    private TransportType transportType;
+
+Route(String id, String name, LinkedList<RoutePart> routePartList, transportType TransportType){
+    this.id = id;
+    this.name = name;
+    this.routePartList = new LinkedList<>();
+    this.transportType = transportType;
+}
+    public Station getBeginStation() {
+        if(routePartList.isEmpty()) return null;
+return routePartList.get(0).getBeginStation();
     }
 
     /**
      * @return
      */
-    public Station getEndStation() {
-        // TODO implement here
-        return null;
+    public Station getEndStation(){
+        if(routePartList.isEmpty()) return null;
+        return routePartList.get(routePartList.size()-1).getEndStation();
     }
-
-    /**
-     * @return
-     */
     public Set<Station> getSetOfStation() {
         // TODO implement here
-        return null;
+        Set<Station> stations = new LinkedHashSet<>();
+        for (RoutePart rp : routePartList) {
+            stations.add(rp.getBeginStation());
+            stations.add(rp.getEndStation());
+            
+        }
+        return stations;
     }
 
     /**
@@ -35,23 +45,32 @@ public class Route {
      */
     public LinkedList<Station> getOrderStationList() {
         // TODO implement here
-        return null;
+        LinkedList<Station> stations = new LinkedList<>();
+        if(routePartList.isEmpty()){
+
+         return  stations;
+        }
+        stations.add(routePartList.get(0).getBeginStation())
+        for(RoutePart rp : routePartList){
+            stations.add(rp.getEndStation());
+        }
+        return  stations;
     }
 
     /**
      * @return
      */
-    public void addRoutePart() {
+    public void addRoutePart(RoutePart rp) {
         // TODO implement here
-        return null;
+        routePartList.add(rp);
     }
 
     /**
      * @return
      */
-    public void removeRoutePart() {
+    public void removeRoutePart(RoutePart rp) {
         // TODO implement here
-        return null;
+        routePartList.remove(rp)
     }
 
     /**
@@ -59,7 +78,11 @@ public class Route {
      */
     public double getTotalTravelTime() {
         // TODO implement here
-        return 0.0d;
+        double total = 0.0
+        for(RoutePart rp : routePartList){
+            total += rp.getTravelTime();
+        }
+        return  total;
     }
 
     /**
@@ -67,7 +90,11 @@ public class Route {
      */
     public double getTotalDistance_Km() {
         // TODO implement here
-        return 0.0d;
+        double total = 0.0;
+        for(RoutePart rp : routePartList){
+            total += rp.getDistance_Km();
+        }
+        return total;
     }
 
 }
