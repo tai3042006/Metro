@@ -1,9 +1,7 @@
 
 	
-	import java.io.*;
 	import java.time.LocalDate;
 	import java.time.LocalTime;
-	import java.util.*;
 	
 	/**
 	 * 
@@ -51,7 +49,7 @@
 		public void setState(ScheduleState state) {
 			this.state = state;
 		}	
-		public ScheduleState isRunning() {
-			return state = ScheduleState.RUNNING;
+		public boolean  isRunning() {
+			return state == ScheduleState.RUNNING;
 		}
 	    }
