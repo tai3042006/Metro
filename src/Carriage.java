@@ -1,31 +1,27 @@
-
-import java.io.*;
-import java.util.*;
-
-
 public class Carriage {
-    public Carriage() {
-    private  String id;
-    private int NumberOfSeats;
-    private  int avaliableSeats;
-    public Carriage()
 
+    private int capacity;        
+    private int currentLoad;     
+
+    public Carriage(int capacity) {
+        this.capacity = capacity;
+        this.currentLoad = 0;
     }
-    public Carriage(String id, int NumberOfSeats, int avaliableSeats){
-        this.id = id;
-        this.NumberOfSeats = NumberOfSeats;
-        this.avaliableSeats = avaliableSeats;
+
+    public boolean hasSpace() {
+        return currentLoad < capacity;
     }
-    public String getId(){
-        return id;
+
+    public void enterPassenger() {
+        if (!hasSpace()) {
+            throw new IllegalStateException("Carriage is full");
+        }
+        currentLoad++;
     }
-    public int getAvaliableSeats(){
-        return avaliableSeats;
+
+    public void exitPassenger() {
+        if (currentLoad > 0) {
+            currentLoad--;
+        }
     }
-    public void setavaliableSeats(int avaliableSeats){
-        this.avaliableSeats = avaliableSeats;
-    }
-    public int totalSeats() {
-        return NumberOfSeats;
-}
 }
