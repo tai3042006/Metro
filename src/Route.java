@@ -1,5 +1,4 @@
 
-import java.io.*;
 import java.util.*;
 
 /**
@@ -11,7 +10,7 @@ public class Route {
     private List<RoutePart> routePartList;
     private TransportType transportType;
 
-Route(String id, String name, LinkedList<RoutePart> routePartList, transportType TransportType){
+Route(String id, String name, LinkedList<RoutePart> routePartList, TransportType TransportType){
     this.id = id;
     this.name = name;
     this.routePartList = new LinkedList<>();
@@ -50,7 +49,7 @@ return routePartList.get(0).getBeginStation();
 
          return  stations;
         }
-        stations.add(routePartList.get(0).getBeginStation())
+        stations.add(routePartList.get(0).getBeginStation());
         for(RoutePart rp : routePartList){
             stations.add(rp.getEndStation());
         }
@@ -70,7 +69,7 @@ return routePartList.get(0).getBeginStation();
      */
     public void removeRoutePart(RoutePart rp) {
         // TODO implement here
-        routePartList.remove(rp)
+        routePartList.remove(rp);
     }
 
     /**
@@ -78,9 +77,9 @@ return routePartList.get(0).getBeginStation();
      */
     public double getTotalTravelTime() {
         // TODO implement here
-        double total = 0.0
+        double total = 0.0;
         for(RoutePart rp : routePartList){
-            total += rp.getTravelTime();
+            total += rp.getDistance_Km();
         }
         return  total;
     }
