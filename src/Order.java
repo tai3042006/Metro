@@ -48,6 +48,10 @@ public class Order {
 
 
 
+
+
+
+
     /**
      * @return
      */
@@ -62,22 +66,6 @@ public class Order {
     public void CancelOrder() {
         // TODO implement here
         return null;
-    }
-
-    /**
-     * @return
-     */
-    public double topUpBalance() {
-        // TODO implement here
-        return 0.0d;
-    }
-
-    /**
-     * @return
-     */
-    public double deductBalance() {
-        // TODO implement here
-        return 0.0d;
     }
 
     /**

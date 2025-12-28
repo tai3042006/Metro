@@ -6,7 +6,5 @@ public class RouteSuggestionService{
         this.routes = routes;
     }
     public List<JourneyPlan> suggestRoute(Station start, Station end){
-        List<JourneyPlan> result = newArrayList<>();
-    
 }
 }

@@ -1,3 +1,4 @@
+
 public class Carriage {
 
     private int capacity;        
@@ -32,4 +33,5 @@ public class Carriage {
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+
 }

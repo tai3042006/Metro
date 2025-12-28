@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * 
  */
-public class Ticket {
+public abstract class Ticket {
 
     /**
      * Default constructor
@@ -16,22 +16,23 @@ public class Ticket {
     /**
      * 
      */
-    public String id;
+    private String ticketId;
 
     /**
      * 
      */
-    public String passengerName;
+    private double price;
 
     /**
      * 
      */
-    public double price;
+    private TicketState state;
 
     /**
      * 
      */
-    public void Date String;
+    private LocalDate issueDate;
+
 
 
 
@@ -39,27 +40,23 @@ public class Ticket {
 
 
     /**
+     * @param time 
+     * @param station 
      * @return
      */
-    public String getTicketId() {
-        // TODO implement here
-        return "";
-    }
-
-    /**
-     * @return
-     */
-    public boolean isValid() {
+    public boolean isValid(LocalDateTime time, Station station) {
         // TODO implement here
         return false;
     }
 
     /**
+     * @param time 
+     * @param station 
      * @return
      */
-    public double getPrice() {
+    public void use(LocalDateTime time, Station station) {
         // TODO implement here
-        return 0.0d;
+        return null;
     }
 
 }

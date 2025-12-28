@@ -49,7 +49,7 @@
 		public void setState(ScheduleState state) {
 			this.state = state;
 		}	
-		public boolean  isRunning() {
+	public boolean  isRunning() {
 			return state == ScheduleState.RUNNING;
 		}
-	    }
+	}

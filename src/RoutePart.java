@@ -1,5 +1,6 @@
 
 
+
 /**
  * 
  */
@@ -20,7 +21,7 @@ public class RoutePart {
     public Station getEndStation(){
         return endStation;
     }
-    private  double getTravelTime() {
+    public  double getTravelTime() {
     return travelTime;
     }
 

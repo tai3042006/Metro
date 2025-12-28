@@ -1,4 +1,5 @@
 
+
 import java.time.LocalDate;
 
 /**
@@ -35,7 +36,7 @@ public class ScheduleDaily {
         this.isActive = isActive;
     }
       public boolean isActive() {
-        return isActive;    
+        return isActive;
     }
 
 

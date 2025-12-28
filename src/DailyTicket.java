@@ -16,39 +16,17 @@ public class DailyTicket {
     /**
      * 
      */
-    public String TicketId;
-
-    /**
-     * 
-     */
-    public double price;
-
-    /**
-     * 
-     */
-    public void Attribute1;
-
-    /**
-     * 
-     */
-    public void Attribute2;
-
+    private LocalDate validDate;
 
 
     /**
+     * @param time 
+     * @param station 
      * @return
      */
-    public LocalDate validate() {
+    public boolean isValid(LocalDateTime time, Station station) {
         // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public double getPrice() {
-        // TODO implement here
-        return 0.0d;
+        return false;
     }
 
 }

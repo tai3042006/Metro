@@ -1,16 +1,11 @@
-
 import java.util.*;
-
-/**
- * 
- */
 public class Route {
     private String id;
     private String name;
-    private List<RoutePart> routePartList;
+    private final List<RoutePart> routePartList;
     private TransportType transportType;
 
-Route(String id, String name, LinkedList<RoutePart> routePartList, TransportType TransportType){
+public Route(String id, String name, LinkedList<RoutePart> routePartList, TransportType TransportType){
     this.id = id;
     this.name = name;
     this.routePartList = new LinkedList<>();
@@ -40,7 +35,7 @@ return routePartList.get(0).getBeginStation();
     }
 
     /**
-     * @return
+@ -35,23 +45,32 @@ public class Route {
      */
     public LinkedList<Station> getOrderStationList() {
         // TODO implement here
@@ -73,20 +68,18 @@ return routePartList.get(0).getBeginStation();
     }
 
     /**
-     * @return
+@ -59,7 +78,11 @@ public class Route {
      */
     public double getTotalTravelTime() {
         // TODO implement here
         double total = 0.0;
         for(RoutePart rp : routePartList){
-            total += rp.getDistance_Km();
+            total += rp.getTravelTime();
         }
         return  total;
     }
 
-    /**
-     * @return
-     */
+   
     public double getTotalDistance_Km() {
         // TODO implement here
         double total = 0.0;
