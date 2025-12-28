@@ -71,33 +71,9 @@ public class Order {
     /**
      * @return
      */
-    public double topUpBalance() {
-        // TODO implement here
-        return 0.0d;
-    }
-
-    /**
-     * @return
-     */
-    public double deductBalance() {
-        // TODO implement here
-        return 0.0d;
-    }
-
-    /**
-     * @return
-     */
     public double getBalance() {
         // TODO implement here
         return 0.0d;
-    }
-
-    /**
-     * @return
-     */
-    public TreeMap<> revenueByDate() {
-        // TODO implement here
-        return null;
     }
 
 }
