@@ -9,11 +9,11 @@
 	public class ScheduleDetail {
 	    public ScheduleDetail() {
 	    }
-	    public LocalDate Date;
-	    public LocalTime timeStart;
-	    public LocalTime timeEnd;
-	    public Vehicle vehicle;
-	    public ScheduleState state;
+	    private  LocalDate Date;
+	    private  LocalTime timeStart;
+	    private  LocalTime timeEnd;
+	    private  Vehicle vehicle;
+	    private  ScheduleState state;
 	    public ScheduleDetail(LocalDate Date, LocalTime timeStart, LocalTime timeEnd, ScheduleState state	) {
 	    	this.Date = Date;
 	    	this.timeEnd = timeEnd;
