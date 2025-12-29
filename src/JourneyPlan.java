@@ -1,77 +1,69 @@
-
-import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class JourneyPlan {
 
-    /**
-     * Default constructor
-     */
-    public JourneyPlan() {
-    }
-
-    /**
-     * 
-     */
-    private String planId;
-
-    /**
-     * 
-     */
+    private final String planId;
     private Station startStation;
-
-    /**
-     * 
-     */
     private Station endStation;
-
-    /**
-     * 
-     */
     private List<Route> routes;
-
-    /**
-     * 
-     */
-    private List<Station> transferStations;
-
-    /**
-     * 
-     */
     private double totalDistance;
-
-    /**
-     * 
-     */
     private double totalTime;
 
+    public JourneyPlan() {
+        this.planId = UUID.randomUUID().toString();
+    }
 
+    public void setStartStation(Station startStation) {
+        this.startStation = startStation;
+    }
 
-    /**
-     * @return
-     */
+    public void setEndStation(Station endStation) {
+        this.endStation = endStation;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
+
+    public String getPlanId() {
+        return planId;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
     public double calculateTotalDistance() {
-        // TODO implement here
-        return 0.0d;
+        double distance = 0.0;
+        if (routes != null) {
+            for (Route route : routes) {
+                distance += route.getTotalDistance_Km();
+            }
+        }
+        this.totalDistance = distance;
+        return distance;
     }
 
-    /**
-     * @return
-     */
     public double calculateTotalTime() {
-        // TODO implement here
-        return 0.0d;
+        double time = 0.0;
+        if (routes != null) {
+            for (Route route : routes) {
+                time += route.getTotalTravelTime();
+            }
+        }
+        this.totalTime = time;
+        return time;
     }
 
-    /**
-     * @return
-     */
     public boolean hasTransfer() {
-        // TODO implement here
-        return false;
+        return routes != null && routes.size() > 1;
     }
 
+    @Override
+    public String toString() {
+        return "JourneyPlan:\n" +
+               "from: " + startStation + "\n" +
+               "to: " + endStation + "\n" +
+               "distance: " + totalDistance + "\n" +
+               "time: " + totalTime;
+    }
 }

@@ -34,4 +34,12 @@ public class Carriage {
         this.capacity = capacity;
     }
 
+    /**
+     * @return
+     */
+    public int totalSeats() {
+        // TODO implement here
+        return 0;
+    }
+
 }

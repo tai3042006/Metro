@@ -1,16 +1,19 @@
 import java.util.*;
 public class Route {
-    private String id;
-    private String name;
+    private final String id;
+    private final String name;
     private final List<RoutePart> routePartList;
-    private TransportType transportType;
+    private TransportType type;
 
-public Route(String id, String name, LinkedList<RoutePart> routePartList, TransportType TransportType){
+public Route(String id, String name,
+             LinkedList<RoutePart> routePartList,
+             TransportType type) {
     this.id = id;
     this.name = name;
-    this.routePartList = new LinkedList<>();
-    this.transportType = transportType;
+    this.routePartList = routePartList;
+    this.type = type;
 }
+
     public Station getBeginStation() {
         if(routePartList.isEmpty()) return null;
 return routePartList.get(0).getBeginStation();
@@ -88,5 +91,7 @@ return routePartList.get(0).getBeginStation();
         }
         return total;
     }
-
+    public TransportType getType(){
+        return type;
+    }
 }

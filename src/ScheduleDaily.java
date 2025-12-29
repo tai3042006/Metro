@@ -40,4 +40,15 @@ public class ScheduleDaily {
     }
 
 
+
+
+
+    /**
+     * @return
+     */
+    public boolean isAvailable() {
+        // TODO implement here
+        return false;
+    }
+
 }
