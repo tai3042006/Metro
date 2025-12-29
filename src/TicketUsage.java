@@ -4,20 +4,13 @@ public class TicketUsage {
 
     private String usageId;
     private LocalDateTime usedTime;
-    private Station usedStation; // Sửa public -> private để chuẩn OOP
+    private Station usedStation; 
 
-    /**
-     * Default constructor
-     */
+   
     public TicketUsage() {
     }
 
-    /**
-     * Constructor đầy đủ tham số
-     * Được gọi khi khách hàng quẹt thẻ (Ticket.use)
-     * @param usedStation Trạm khách đang đứng
-     * @param usedTime Thời gian quẹt thẻ
-     */
+    
     public TicketUsage(Station usedStation, LocalDateTime usedTime) {
         // Tự sinh ID ngẫu nhiên dựa trên thời gian thực
         this.usageId = "USAGE_" + System.nanoTime(); 

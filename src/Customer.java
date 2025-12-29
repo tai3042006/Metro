@@ -3,35 +3,25 @@ import java.util.*;
 
 public class Customer {
 
-    public String id;
-    public String name;
-    public String phone;
-    
-    // Sửa type: List<Order> thay vì List<Order> OrderHistory (đặt tên biến camelCase)
-    public List<Order> orderHistory;
 
-    // Sửa type: Dùng Enum CustomerType
-    public CustomerType type;
+    private String id;
+    private String name;
+    private String phone;
+    private List<Order> orderHistory;
+    private CustomerType type;
+    private StudentCard studentCard;
+    private double balance;
 
-    // Sửa type: Dùng Class StudentCard (viết hoa chữ cái đầu)
-    public StudentCard studentCard;
-
-    public double balance;
-
-    /**
-     * Default constructor
-     */
+   
     public Customer() {
-        // Luôn khởi tạo danh sách để tránh lỗi Null
         this.orderHistory = new ArrayList<>();
         this.balance = 0.0;
     }
 
-    /**
-     * Constructor có tham số (Nên dùng cái này)
-     */
+  
+     
     public Customer(String id, String name, CustomerType type) {
-        this(); // Gọi constructor mặc định để khởi tạo List
+        this(); 
         this.id = id;
         this.name = name;
         this.type = type;
@@ -45,16 +35,9 @@ public class Customer {
     public void setStudentCard(StudentCard studentCard) {
         this.studentCard = studentCard;
         if (studentCard != null) {
-            this.type = CustomerType.STUDENT;
+            this.type = CustomerType.STUDENT; // Tự động cập nhật loại khách
+            System.out.println("Đã cập nhật khách hàng " + this.name + " thành loại STUDENT.");
         }
-    }
-
-    /**
-     * Lấy thông tin thẻ sinh viên
-     * Sửa kiểu trả về từ void -> StudentCard
-     */
-    public StudentCard getStudentCard() {
-        return this.studentCard;
     }
 
     /**
@@ -65,17 +48,35 @@ public class Customer {
     public double topUpBalance(double amount) {
         if (amount > 0) {
             this.balance += amount;
-            System.out.println("Nạp thành công " + amount + ". Số dư mới: " + this.balance);
+            System.out.println("Nạp thành công " + String.format("%,.0f", amount) + ". Số dư mới: " + String.format("%,.0f", this.balance));
         }
         return this.balance;
     }
 
-    /**
-     * Hàm thêm đơn hàng vào lịch sử (Hỗ trợ logic Order)
-     */
+    
     public void addOrder(Order order) {
         if (this.orderHistory != null) {
             this.orderHistory.add(order);
         }
     }
+
+    // --- Getters & Setter ---
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public CustomerType getType() { return type; } 
+    public void setType(CustomerType type) { this.type = type; }
+
+    public StudentCard getStudentCard() { return studentCard; }
+    
+    public double getBalance() { return balance; }
+
+    public List<Order> getOrderHistory() { return orderHistory; }
 }

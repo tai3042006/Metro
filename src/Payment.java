@@ -5,33 +5,28 @@ public class Payment {
     private String id;
     private double amount;
     private LocalDate paymentDate;
-    private String paymentMethod; // Ví dụ: "Cash", "Credit Card", "Momo"
+    private String paymentMethod; 
     private boolean isSuccessful;
 
-    /**
-     * Default constructor
-     */
     public Payment() {
-        // Tự động gán ngày thanh toán là hôm nay
+       
         this.paymentDate = LocalDate.now();
-        // Giả lập thanh toán luôn thành công (để test cho dễ)
         this.isSuccessful = true;
     }
 
     /**
-     * Constructor đầy đủ tham số
      * @param id Mã giao dịch
      * @param amount Số tiền
      * @param paymentMethod Phương thức thanh toán
      */
     public Payment(String id, double amount, String paymentMethod) {
-        this(); // Gọi constructor mặc định để set ngày
+        this(); 
         this.id = id;
         this.amount = amount;
         this.paymentMethod = paymentMethod;
     }
 
-    // --- Getters & Setters (Bắt buộc để các class khác lấy dữ liệu) ---
+    // --- Getters & Setters ---
 
     public String getId() {
         return id;

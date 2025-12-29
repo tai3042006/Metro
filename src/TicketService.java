@@ -7,23 +7,17 @@ public class TicketService {
     private static final double PRICE_DAILY       = 30000.0; // 30k
     private static final double PRICE_MONTHLY     = 200000.0; // 200k
 
-    /**
-     * Default constructor
-     */
+    
     public TicketService() {
     }
 
-    /**
-     * Hàm tính giá vé (Core Logic)
-     * Yêu cầu: Nếu là sinh viên -> Giảm 50%
-     */
+    
     private double calculatePrice(Customer customer, double basePrice) {
         // Kiểm tra: Nếu Type là STUDENT HOẶC có thẻ StudentCard
         boolean isStudent = (customer.getType() == CustomerType.STUDENT) 
                          || (customer.getStudentCard() != null);
 
         if (isStudent) {
-            // [SỬA LẠI]: Dùng customer.getName() thay vì customer.name
             System.out.println("   -> [GIẢM GIÁ] Áp dụng giảm 50% cho sinh viên: " + customer.getName());
             return basePrice * 0.5;
         }
@@ -31,16 +25,11 @@ public class TicketService {
         return basePrice;
     }
 
-    /**
-     * Tạo ID ngẫu nhiên cho vé
-     */
+    
     private String generateTicketId(String prefix) {
         return prefix + "_" + System.currentTimeMillis();
     }
 
-    /**
-     * Phát hành vé ngày (DailyTicket)
-     */
     public DailyTicket issueDailyTicket(Order order) {
         double finalPrice = calculatePrice(order.getCustomer(), PRICE_DAILY);
         
@@ -51,14 +40,11 @@ public class TicketService {
         return ticket;
     }
 
-    /**
-     * Phát hành vé lượt (SingleRideTicket)
-     */
+    
     public SingleRideTicket issueSingleRideTicket(Order order) {
         double finalPrice = calculatePrice(order.getCustomer(), PRICE_SINGLE_RIDE);
         
-        // Khớp với constructor mới của SingleRideTicket (có trạm đi/đến)
-        // Truyền null vì lúc mua chưa biết đi từ đâu đến đâu
+      
         SingleRideTicket ticket = new SingleRideTicket(generateTicketId("S"), finalPrice, null, null);
         
         order.addTicket(ticket);
@@ -66,9 +52,7 @@ public class TicketService {
         return ticket;
     }
 
-    /**
-     * Phát hành vé tháng (MonthlyTicket)
-     */
+    
     public MonthlyTicket issueMonthlyTicket(Order order) {
         double finalPrice = calculatePrice(order.getCustomer(), PRICE_MONTHLY);
         
@@ -79,10 +63,7 @@ public class TicketService {
         return ticket;
     }
 
-    /**
-     * Kiểm tra vé có hợp lệ tại trạm và thời điểm cụ thể không
-     * Sử dụng tính đa hình (Polymorphism) gọi hàm isValid của từng loại vé
-     */
+    
     public boolean validateTicket(Ticket ticket, LocalDateTime time, Station station) {
         if (ticket == null) return false;
         
@@ -94,12 +75,9 @@ public class TicketService {
         return isValid;
     }
 
-    /**
-     * Hủy vé
-     */
+    
     public void cancelTicket(String ticketId) {
-        // Trong thực tế sẽ tìm vé trong Database để update status
-        // Ở đây mình giả lập in ra console
+        
         System.out.println("Yêu cầu hủy vé ID: " + ticketId + " đã được tiếp nhận.");
     }
 }
