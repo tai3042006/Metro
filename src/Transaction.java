@@ -1,56 +1,21 @@
+import java.time.LocalDateTime;
 
-import java.io.*;
-import java.util.*;
-
-/**
- * 
- */
 public class Transaction {
+    private String id;
+    private double amount;
+    private LocalDateTime transactionDate;
+    private TransactionType type;
+    private String description;
 
-    /**
-     * Default constructor
-     */
-    public Transaction() {
+    public Transaction(String id, double amount, TransactionType type, String description) {
+        this.id = id;
+        this.amount = amount;
+        this.type = type;
+        this.description = description;
+        this.transactionDate = LocalDateTime.now();
     }
-
-    /**
-     * 
-     */
-    public String id;
-
-    /**
-     * 
-     */
-    public double amount;
-
-    /**
-     * 
-     */
-    public LocalDateTime transactionDate;
-
-    /**
-     * 
-     */
-    public TransactionType type;
-
-    /**
-     * 
-     */
-    public String description;
-
-    /**
-     * 
-     */
-    public void get;
-
-
-
-    /**
-     * @return
-     */
+    
     public String getDetails() {
-        // TODO implement here
-        return "";
+        return "Trans[" + id + "]: " + type + " - " + amount;
     }
-
 }

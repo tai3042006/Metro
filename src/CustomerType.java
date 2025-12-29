@@ -1,30 +1,5 @@
-
-import java.io.*;
-import java.util.*;
-
-/**
- * 
- */
-public class CustomerType {
-
-    /**
-     * Default constructor
-     */
-    public CustomerType() {
-    }
-
-    /**
-     * 
-     */
-    public void STUDENT;
-
-    /**
-     * 
-     */
-    public void WORKER;
-
-
-
-
-
+public enum CustomerType {
+    STUDENT, // Học sinh/Sinh viên (Sẽ được giảm giá)
+    WORKER,  // Người đi làm
+    NORMAL   // Khách vãng lai
 }
