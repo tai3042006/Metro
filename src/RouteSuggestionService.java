@@ -1,41 +1,34 @@
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.*;
-import java.util.*;
-
-/**
- * 
- */
 public class RouteSuggestionService {
 
-    /**
-     * Default constructor
-     */
-    public RouteSuggestionService() {
+    private List<Route> routes;
+    private BusPathService busService;
+    private MetroPathService metroService;
+
+    public RouteSuggestionService(
+            List<Route> routes,
+            BusPathService busService,
+            MetroPathService metroService) {
+
+        this.routes = routes;
+        this.busService = busService;
+        this.metroService = metroService;
     }
 
-    /**
-     * 
-     */
-    public void Attribute1;
+    public List<JourneyPlan> suggestRoute(Station start, Station end) {
+        List<JourneyPlan> result = new ArrayList<>();
+        JourneyPlan metroPlan = metroService.findJourney(start, end);
+        if (metroPlan != null) {
+            result.add(metroPlan);
+        }
+        JourneyPlan mixedPlan =
+                busService.findBusMetroBusJourney(start, end);
+        if (mixedPlan != null) {
+            result.add(mixedPlan);
+        }
 
-    /**
-     * @param start 
-     * @param end 
-     * @return
-     */
-    public List<JourneyPlan> suggestRoutes(Station start, Station end) {
-        // TODO implement here
-        return null;
+        return result;
     }
-
-    /**
-     * @param start 
-     * @param end 
-     * @return
-     */
-    public List<Station> findTransferStations(Station start, Station end) {
-        // TODO implement here
-        return null;
-    }
-
 }

@@ -1,115 +1,97 @@
-
-import java.io.*;
 import java.util.*;
-
-/**
- * 
- */
 public class Route {
+    private final String id;
+    private final String name;
+    private final List<RoutePart> routePartList;
+    private TransportType type;
 
-    /**
-     * Default constructor
-     */
-    public Route() {
-    }
+public Route(String id, String name,
+             LinkedList<RoutePart> routePartList,
+             TransportType type) {
+    this.id = id;
+    this.name = name;
+    this.routePartList = routePartList;
+    this.type = type;
+}
 
-    /**
-     * 
-     */
-    public String id;
-
-    /**
-     * 
-     */
-    public String name;
-
-    /**
-     * 
-     */
-    public LinkedList<RoutePart> routePartList;
-
-    /**
-     * 
-     */
-    public void Attribute1;
-
-    /**
-     * 
-     */
-    public void Attribute2;
-
-    /**
-     * 
-     */
-    public TransportType transportType;
-
-
-
-
-
-
-    /**
-     * @return
-     */
     public Station getBeginStation() {
-        // TODO implement here
-        return null;
+        if(routePartList.isEmpty()) return null;
+return routePartList.get(0).getBeginStation();
     }
 
     /**
      * @return
      */
-    public Station getEndStation() {
-        // TODO implement here
-        return null;
+    public Station getEndStation(){
+        if(routePartList.isEmpty()) return null;
+        return routePartList.get(routePartList.size()-1).getEndStation();
     }
-
-    /**
-     * @return
-     */
     public Set<Station> getSetOfStation() {
         // TODO implement here
-        return null;
+        Set<Station> stations = new LinkedHashSet<>();
+        for (RoutePart rp : routePartList) {
+            stations.add(rp.getBeginStation());
+            stations.add(rp.getEndStation());
+            
+        }
+        return stations;
     }
 
     /**
-     * @return
+@ -35,23 +45,32 @@ public class Route {
      */
     public LinkedList<Station> getOrderStationList() {
         // TODO implement here
-        return null;
+        LinkedList<Station> stations = new LinkedList<>();
+        if(routePartList.isEmpty()){
+
+         return  stations;
+        }
+        stations.add(routePartList.get(0).getBeginStation());
+        for(RoutePart rp : routePartList){
+            stations.add(rp.getEndStation());
+        }
+        return  stations;
     }
 
     /**
      * @return
      */
-    public void addRoutePart() {
+    public void addRoutePart(RoutePart rp) {
         // TODO implement here
-        return null;
+        routePartList.add(rp);
     }
 
     /**
      * @return
      */
-    public void removeRoutePart() {
+    public void removeRoutePart(RoutePart rp) {
         // TODO implement here
-        return null;
+        routePartList.remove(rp);
     }
 
     /**
-     * @return
+@ -59,7 +78,11 @@ public class Route {
      */
     public double getTotalTravelTime() {
         // TODO implement here
-        return 0.0d;
+        double total = 0.0;
+        for(RoutePart rp : routePartList){
+            total += rp.getTravelTime();
+        }
+        return  total;
     }
 
-    /**
-     * @return
-     */
+   
     public double getTotalDistance_Km() {
         // TODO implement here
-        return 0.0d;
+        double total = 0.0;
+        for(RoutePart rp : routePartList){
+            total += rp.getDistance_Km();
+        }
+        return total;
     }
-
+    public TransportType getType(){
+        return type;
+    }
 }

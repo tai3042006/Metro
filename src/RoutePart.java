@@ -1,75 +1,31 @@
 
-import java.io.*;
-import java.util.*;
+
 
 /**
  * 
  */
 public class RoutePart {
-
-    /**
-     * Default constructor
-     */
-    public RoutePart() {
+    private  Station beginStation;
+    private  Station endStation;
+    private  double travelTime; // minute
+    private  double distance_Km; //km
+    public RoutePart(Station beginStation, Station endStation, double travelTime, double distance_Km) {
+        this.beginStation = beginStation;
+        this.endStation = endStation;
+        this.travelTime = travelTime;
+        this.distance_Km = distance_Km;
+    }
+    public Station getBeginStation(){
+        return beginStation;
+    }
+    public Station getEndStation(){
+        return endStation;
+    }
+    public  double getTravelTime() {
+    return travelTime;
     }
 
-    /**
-     * 
-     */
-    public Station beginStation;
-
-    /**
-     * 
-     */
-    public Station endStation;
-
-    /**
-     * 
-     */
-    public double travelTime;
-
-    /**
-     * 
-     */
-    public double distance_Km;
-
-
-
-    /**
-     * 
-     */
-    public void Operation1() {
-        // TODO implement here
+    public double getDistance_Km() {
+        return distance_Km;
     }
-
-    /**
-     * 
-     */
-    public void Operation2() {
-        // TODO implement here
     }
-
-    /**
-     * @return
-     */
-    public double getTotalTravelTime() {
-        // TODO implement here
-        return 0.0d;
-    }
-
-    /**
-     * @return
-     */
-    public double getTotalDistance_Km() {
-        // TODO implement here
-        return 0.0d;
-    }
-
-    /**
-     * 
-     */
-    public void Operation3() {
-        // TODO implement here
-    }
-
-}

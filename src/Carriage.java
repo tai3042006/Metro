@@ -1,46 +1,37 @@
 
-import java.io.*;
-import java.util.*;
-
-/**
- * 
- */
 public class Carriage {
 
-    /**
-     * Default constructor
-     */
-    public Carriage() {
+    private int capacity;        
+    private int currentLoad;     
+
+    public Carriage(int capacity) {
+        this.capacity = capacity;
+        this.currentLoad = 0;
     }
 
-    /**
-     * 
-     */
-    public String id;
-
-    /**
-     * 
-     */
-    public int NumberOfSeats;
-
-    /**
-     * 
-     */
-    public int avaliableSeats;
-
-
-    /**
-     * 
-     */
-    public void reserveSeats() {
-        // TODO implement here
+    public boolean hasSpace() {
+        return currentLoad < capacity;
     }
 
-    /**
-     * 
-     */
-    public void releaseSeats() {
-        // TODO implement here
+    public void enterPassenger() {
+        if (!hasSpace()) {
+            throw new IllegalStateException("Carriage is full");
+        }
+        currentLoad++;
+    }
+
+    public void exitPassenger() {
+        if (currentLoad > 0) {
+            currentLoad--;
+        }
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     /**
