@@ -69,7 +69,6 @@ public class TicketService {
         
         boolean isValid = ticket.isValid(time, station);
         if (isValid) {
-            // Nếu hợp lệ thì ghi nhận việc sử dụng
             ticket.use(time, station);
         }
         return isValid;
