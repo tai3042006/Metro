@@ -4,15 +4,14 @@ import java.util.List;
 
 public class Order {
 
-    public String id;
-    public List<Ticket> listOfTickets;
-    public OrderStatus status;
-    public double totalPrice;
-    public LocalDate createdAt;
-    public Payment payment;
     
-    
-    public Customer customer; 
+    private String id;
+    private List<Ticket> listOfTickets;
+    private OrderStatus status;
+    private double totalPrice;
+    private LocalDate createdAt;
+    private Payment payment;
+    private Customer customer; 
 
     
     public Order() {
@@ -38,7 +37,7 @@ public class Order {
         }
     }
 
-    
+  
     public void addTicket(Ticket ticket) {
         this.listOfTickets.add(ticket);
         updateTotalPrice();
@@ -53,7 +52,7 @@ public class Order {
         }
     }
 
-    
+   
     public boolean validateOrder() {
         boolean hasTickets = this.listOfTickets != null && !this.listOfTickets.isEmpty();
         boolean isNotCancelled = this.status != OrderStatus.CANCELLED;
@@ -65,9 +64,13 @@ public class Order {
         System.out.println("Order " + this.id + " has been cancelled.");
     }
 
-    // --- Getters & Setters ---
+    // --- Getters & Setters 
     
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
     public double getBalance() { return this.totalPrice; }
+    public double getTotalPrice() { return this.totalPrice; } 
     
     public Customer getCustomer() { return customer; } 
     public void setCustomer(Customer customer) { this.customer = customer; }
@@ -77,11 +80,17 @@ public class Order {
     
     public LocalDate getCreatedAt() { return createdAt; }
 
+    public Payment getPayment() { return payment; }
+    public void setPayment(Payment payment) { this.payment = payment; }
+
+    public List<Ticket> getListOfTickets() { return listOfTickets; }
+
     @Override
     public String toString() {
+        
         return "Order{" +
                 "id='" + id + '\'' +
-                ", customer=" + (customer != null ? customer.name : "null") +
+                ", customer=" + (customer != null ? customer.getName() : "null") +
                 ", total=" + totalPrice +
                 ", status=" + status +
                 ", date=" + createdAt +
