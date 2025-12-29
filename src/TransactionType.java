@@ -1,32 +1,9 @@
-
-import java.io.*;
-import java.util.*;
-
 /**
- * 
+ * TransactionType.java
+ * Enum định nghĩa các loại giao dịch trong hệ thống
  */
-public class TransactionType {
-
-    /**
-     * Default constructor
-     */
-    public TransactionType() {
-    }
-
-    /**
-     * 
-     */
-    public void TOP_UP;
-
-    /**
-     * 
-     */
-    public void PAYMENT;
-
-    /**
-     * 
-     */
-    public void REFUND;
-
-
+public enum TransactionType {
+    TOP_UP,     // Nạp tiền vào tài khoản/thẻ
+    PAYMENT,    // Thanh toán tiền mua vé
+    REFUND      // Hoàn tiền (khi hủy vé hoặc lỗi hệ thống)
 }
