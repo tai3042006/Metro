@@ -11,28 +11,21 @@ public abstract class Ticket {
     protected LocalDate issueDate; // Ngày phát hành
     protected List<TicketUsage> usageHistory; // Lưu lịch sử dùng vé
 
-    /**
-     * Default constructor
-     */
+    
     public Ticket() {
         this.usageHistory = new ArrayList<>();
         this.issueDate = LocalDate.now();
         this.state = TicketState.ACTIVE;
     }
 
-    /**
-     * Constructor đầy đủ tham số
-     */
+    
     public Ticket(String ticketId, double price) {
-        this(); // Gọi constructor mặc định để khởi tạo List và Date
+        this(); 
         this.ticketId = ticketId;
         this.price = price;
     }
 
-    /**
-     * Phương thức trừu tượng (Abstract Method)
-     * Các lớp con (Vé ngày, Vé lượt) BẮT BUỘC phải override hàm này
-     */
+    
     public abstract boolean isValid(LocalDateTime time, Station station);
 
     /**
@@ -41,12 +34,10 @@ public abstract class Ticket {
      * @param station Trạm quẹt thẻ
      */
     public void use(LocalDateTime time, Station station) {
-        // 1. Kiểm tra vé có hợp lệ không (Gọi hàm isValid của lớp con)
+        // 1. Kiểm tra vé có hợp lệ không
         if (isValid(time, station)) {
             
-            // --- [ĐOẠN ĐÃ SỬA] ---
-            // Truyền đối tượng 'station' vào constructor TicketUsage
-            // (Lúc trước truyền station.getName() là sai kiểu dữ liệu)
+           
             TicketUsage usage = new TicketUsage(station, time);
             
             this.usageHistory.add(usage);

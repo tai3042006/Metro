@@ -11,12 +11,10 @@ public class Order {
     public LocalDate createdAt;
     public Payment payment;
     
-    // [QUAN TRỌNG] Thêm biến này để biết đơn hàng của ai -> Tính giảm giá
+    
     public Customer customer; 
 
-    /**
-     * Default constructor
-     */
+    
     public Order() {
         this.listOfTickets = new ArrayList<>();
         this.createdAt = LocalDate.now();
@@ -25,32 +23,28 @@ public class Order {
     }
 
     /**
-     * Constructor có tham số (Cập nhật thêm Customer)
+     * Constructor có tham số 
      * @param id Mã đơn hàng
      * @param customer Khách hàng mua vé
      */
     public Order(String id, Customer customer) {
-        this(); // Gọi constructor mặc định để khởi tạo List
+        this(); 
         this.id = id;
         this.customer = customer;
         
-        // Logic phụ: Thêm đơn hàng này vào lịch sử của khách
+        
         if (customer != null) {
             customer.addOrder(this);
         }
     }
 
-    /**
-     * Thêm vé vào đơn hàng và tự động cập nhật tổng tiền
-     */
+    
     public void addTicket(Ticket ticket) {
         this.listOfTickets.add(ticket);
         updateTotalPrice();
     }
 
-    /**
-     * Cập nhật tổng tiền sử dụng JAVA 8 STREAM (Điểm cộng 7đ+)
-     */
+    
     public void updateTotalPrice() {
         if (this.listOfTickets != null) {
             this.totalPrice = this.listOfTickets.stream()
@@ -59,9 +53,7 @@ public class Order {
         }
     }
 
-    /**
-     * Validate đơn hàng
-     */
+    
     public boolean validateOrder() {
         boolean hasTickets = this.listOfTickets != null && !this.listOfTickets.isEmpty();
         boolean isNotCancelled = this.status != OrderStatus.CANCELLED;
@@ -77,7 +69,7 @@ public class Order {
     
     public double getBalance() { return this.totalPrice; }
     
-    public Customer getCustomer() { return customer; } // Cần hàm này cho TicketService gọi
+    public Customer getCustomer() { return customer; } 
     public void setCustomer(Customer customer) { this.customer = customer; }
 
     public OrderStatus getStatus() { return status; }

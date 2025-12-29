@@ -5,29 +5,17 @@ public class DailyTicket extends Ticket {
 
     private LocalDate validDate;
 
-    /**
-     * Default constructor
-     */
     public DailyTicket() {
         super();
         this.validDate = LocalDate.now();
     }
 
-    /**
-     * Constructor đầy đủ tham số
-     * Vé ngày thường có giá trị ngay trong ngày mua
-     */
+    
     public DailyTicket(String id, double price) {
         super(id, price);
         this.validDate = LocalDate.now(); // Gán ngày hiệu lực là hôm nay
     }
 
-    /**
-     * Kiểm tra vé có hợp lệ không
-     * Logic:
-     * 1. Trạng thái phải là ACTIVE
-     * 2. Ngày sử dụng (time) phải TRÙNG với ngày hiệu lực (validDate)
-     */
     @Override
     public boolean isValid(LocalDateTime time, Station station) {
         // Kiểm tra trạng thái

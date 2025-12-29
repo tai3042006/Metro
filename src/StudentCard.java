@@ -6,15 +6,12 @@ public class StudentCard {
     private String studentId;
     private String studentName;
 
-    /**
-     * Default constructor
-     */
+    
     public StudentCard() {
     }
 
-    /**
-     * Constructor đầy đủ tham số (Nên dùng cái này)
-     */
+   
+     
     public StudentCard(String studentId, String studentName) {
         this.studentId = studentId;
         this.studentName = studentName;
