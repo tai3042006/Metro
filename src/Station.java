@@ -1,21 +1,24 @@
 import java.util.Objects;
+import java.util.Random;
 
 public class Station {
 
     private String id;
     private String name;
 
-    public Station(String id, String name) {
-        this.id = id;
+    public Station(String name) {
+        this.id = generateRandomId();
         this.name = name;
+    }
+
+    private String generateRandomId() {
+        Random random = new Random();
+        int number = random.nextInt(1000); 
+        return String.format("%03d", number); 
     }
 
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -40,6 +43,6 @@ public class Station {
 
     @Override
     public String toString() {
-        return name;
+        return name + " (" + id + ")";
     }
 }
