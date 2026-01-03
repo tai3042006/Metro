@@ -1,31 +1,49 @@
-
-
-
-/**
- * 
- */
 public class RoutePart {
-    private  Station beginStation;
-    private  Station endStation;
-    private  double travelTime; // minute
-    private  double distance_Km; //km
-    public RoutePart(Station beginStation, Station endStation, double travelTime, double distance_Km) {
-        this.beginStation = beginStation;
+    
+    private Station startStation;
+    private Station endStation;
+    private double travelTime; // minutes
+    private double distance;   // km
+
+  
+    public RoutePart(Station startStation, Station endStation, double distance, double travelTime) {
+        this.startStation = startStation;
         this.endStation = endStation;
+        this.distance = distance;
         this.travelTime = travelTime;
-        this.distance_Km = distance_Km;
     }
-    public Station getBeginStation(){
-        return beginStation;
+
+    // --- GETTERS  ---
+
+    public Station getStartStation() {
+        return startStation;
     }
-    public Station getEndStation(){
+
+    public void setStartStation(Station startStation) {
+        this.startStation = startStation;
+    }
+
+    public Station getEndStation() {
         return endStation;
     }
-    public  double getTravelTime() {
-    return travelTime;
+
+    public void setEndStation(Station endStation) {
+        this.endStation = endStation;
     }
 
-    public double getDistance_Km() {
-        return distance_Km;
+    public double getDistance() {
+        return distance;
     }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
+
+    public double getTravelTime() {
+        return travelTime;
+    }
+
+    public void setTravelTime(double travelTime) {
+        this.travelTime = travelTime;
+    }
+}

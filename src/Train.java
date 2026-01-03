@@ -1,9 +1,10 @@
-
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class Train {
 
+    private String id; 
     private String name;
     private boolean active;
     private Locomotive locomotive;
@@ -14,12 +15,16 @@ public class Train {
         this.active = true;
     }
 
+   
     public Train(String name, boolean active, Locomotive locomotive) {
+        this.id = name; 
         this.name = name;
         this.active = active;
         this.locomotive = locomotive;
         this.carriageList = new LinkedList<>();
     }
+
+    // --- GETTERS & SETTERS ---
 
     public String getName() {
         return name;
@@ -27,6 +32,11 @@ public class Train {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    
+    public String getId() {
+        return id;
     }
 
     public boolean isActive() {
@@ -54,11 +64,21 @@ public class Train {
     }
 
     
+    // Nâng cấp: Dùng Stream API để tính tổng 
+    public int getTotalCapacity() {
+        return carriageList.stream()
+                .mapToInt(Carriage::getTotalSeats) 
+                .sum();
+    }
+    
+    // Java 7 cũ :
+    /*
     public int getTotalCapacity() {
         int total = 0;
         for (Carriage c : carriageList) {
-            total += c.getCapacity();
+            total += c.getTotalSeats(); // Đã sửa getCapacity -> getTotalSeats
         }
         return total;
     }
+    */
 }

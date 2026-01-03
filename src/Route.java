@@ -1,97 +1,93 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Route {
-    private final String id;
-    private final String name;
-    private final List<RoutePart> routePartList;
-    private TransportType type;
 
-public Route(String id, String name,
-             LinkedList<RoutePart> routePartList,
-             TransportType type) {
-    this.id = id;
-    this.name = name;
-    this.routePartList = routePartList;
-    this.type = type;
-}
+    private String id;
+    private String name;
+    private LinkedList<RoutePart> routePartList; 
+    private TransportType transportType;
 
-    public Station getBeginStation() {
-        if(routePartList.isEmpty()) return null;
-return routePartList.get(0).getBeginStation();
-    }
-
-    /**
-     * @return
-     */
-    public Station getEndStation(){
-        if(routePartList.isEmpty()) return null;
-        return routePartList.get(routePartList.size()-1).getEndStation();
-    }
-    public Set<Station> getSetOfStation() {
-        // TODO implement here
-        Set<Station> stations = new LinkedHashSet<>();
-        for (RoutePart rp : routePartList) {
-            stations.add(rp.getBeginStation());
-            stations.add(rp.getEndStation());
-            
-        }
-        return stations;
-    }
-
-    /**
-@ -35,23 +45,32 @@ public class Route {
-     */
-    public LinkedList<Station> getOrderStationList() {
-        // TODO implement here
-        LinkedList<Station> stations = new LinkedList<>();
-        if(routePartList.isEmpty()){
-
-         return  stations;
-        }
-        stations.add(routePartList.get(0).getBeginStation());
-        for(RoutePart rp : routePartList){
-            stations.add(rp.getEndStation());
-        }
-        return  stations;
-    }
-
-    /**
-     * @return
-     */
-    public void addRoutePart(RoutePart rp) {
-        // TODO implement here
-        routePartList.add(rp);
-    }
-
-    /**
-     * @return
-     */
-    public void removeRoutePart(RoutePart rp) {
-        // TODO implement here
-        routePartList.remove(rp);
-    }
-
-    /**
-@ -59,7 +78,11 @@ public class Route {
-     */
-    public double getTotalTravelTime() {
-        // TODO implement here
-        double total = 0.0;
-        for(RoutePart rp : routePartList){
-            total += rp.getTravelTime();
-        }
-        return  total;
+    
+    public Route(String id, String name, TransportType transportType) {
+        this.id = id;
+        this.name = name;
+        this.transportType = transportType;
+        this.routePartList = new LinkedList<>(); // Khởi tạo list rỗng
     }
 
    
-    public double getTotalDistance_Km() {
-        // TODO implement here
-        double total = 0.0;
-        for(RoutePart rp : routePartList){
-            total += rp.getDistance_Km();
-        }
-        return total;
+    public void addRoutePart(RoutePart part) {
+        this.routePartList.add(part);
     }
-    public TransportType getType(){
-        return type;
+
+   
+    public void removeRoutePart(RoutePart part) {
+        this.routePartList.remove(part);
+    }
+
+    // --- CÁC PHƯƠNG THỨC TÍNH TOÁN (Dùng Java 8) ---
+
+   
+    public double getTotalDistance_Km() {
+        // Dùng Stream API để cộng dồn distance
+        return routePartList.stream()
+                .mapToDouble(RoutePart::getDistance)
+                .sum();
+    }
+
+   
+    public double getTotalTravelTime() {
+        // Dùng Stream API để cộng dồn thời gian
+        return routePartList.stream()
+                .mapToDouble(RoutePart::getTravelTime)
+                .sum();
+    }
+
+   
+   
+    public TransportType getTransportType() {
+        return transportType;
+    }
+    
+ 
+    public TransportType getType() {
+        return getTransportType();
+    }
+
+    
+    // Phương thức này trả về danh sách các trạm đi qua theo thứ tự
+    public List<Station> getOrderStationList() {
+        List<Station> stations = new ArrayList<>();
+        if (routePartList.isEmpty()) return stations;
+
+        // Thêm trạm đầu tiên của chặng đầu
+        stations.add(routePartList.getFirst().getStartStation());
+
+      
+        List<Station> endStations = routePartList.stream()
+                .map(RoutePart::getEndStation)
+                .collect(Collectors.toList());
+        
+        stations.addAll(endStations);
+        return stations;
+    }
+
+    // Getter cơ bản khác
+    public String getId() { return id; }
+    public String getName() { return name; }
+    public LinkedList<RoutePart> getRouteParts() {
+    return this.routePartList;
+}
+   
+    public Station getBeginStation() {
+        return routePartList.isEmpty() ? null : routePartList.getFirst().getStartStation();
+    }
+    
+  
+    public Station getEndStation() {
+        return routePartList.isEmpty() ? null : routePartList.getLast().getEndStation();
     }
 }

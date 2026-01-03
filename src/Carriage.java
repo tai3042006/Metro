@@ -1,45 +1,30 @@
-
 public class Carriage {
+    private String id;
+    private int numberOfSeats;
+    private int availableSeats;
 
-    private int capacity;        
-    private int currentLoad;     
-
-    public Carriage(int capacity) {
-        this.capacity = capacity;
-        this.currentLoad = 0;
+    public Carriage(String id, int numberOfSeats) {
+        this.id = id;
+        this.numberOfSeats = numberOfSeats;
+        this.availableSeats = numberOfSeats; // Mặc định lúc mới tạo xe thì số ghế trống = tổng số ghế
     }
 
-    public boolean hasSpace() {
-        return currentLoad < capacity;
+    // phương thức lấy tổng số ghế
+    public int getTotalSeats() {
+        return this.numberOfSeats;
+    }
+    
+    // Getter id
+    public String getId() { 
+        return id; 
     }
 
-    public void enterPassenger() {
-        if (!hasSpace()) {
-            throw new IllegalStateException("Carriage is full");
-        }
-        currentLoad++;
+    // Getter/Setter cho availableSeats )
+    public int getAvailableSeats() {
+        return availableSeats;
     }
 
-    public void exitPassenger() {
-        if (currentLoad > 0) {
-            currentLoad--;
-        }
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
     }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    /**
-     * @return
-     */
-    public int totalSeats() {
-        // TODO implement here
-        return 0;
-    }
-
 }

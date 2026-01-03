@@ -1,20 +1,17 @@
-
-
 import java.time.LocalDate;
 
-/**
- * 
- */
 public class ScheduleDaily {
-    private  LocalDate date;
-    private  ScheduleCategory category;
-    private boolean isActive;
+    private LocalDate date;
+    private ScheduleCategory category;
+    private boolean isActive; 
 
     public ScheduleDaily(LocalDate date, ScheduleCategory category, boolean isActive) {
         this.date = date;
         this.category = category;
         this.isActive = isActive;
     }
+
+    // --- GETTERS & SETTERS ---
 
     public LocalDate getDate() {
         return date;
@@ -35,20 +32,13 @@ public class ScheduleDaily {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
-      public boolean isActive() {
+
+    public boolean isActive() {
         return isActive;
     }
-
-
-
-
-
-    /**
-     * @return
-     */
+ 
     public boolean isAvailable() {
-        // TODO implement here
-        return false;
-    }
 
+        return this.isActive;
+    }
 }

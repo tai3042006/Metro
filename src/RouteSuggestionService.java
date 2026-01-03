@@ -2,33 +2,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RouteSuggestionService {
+    
+    public RouteSuggestionService() {}
 
-    private List<Route> routes;
-    private BusPathService busService;
-    private MetroPathService metroService;
+    
+    public List<Route> suggestRoutes(Station start, Station end, List<Route> allRoutes) {
+        List<Route> results = new ArrayList<>();
+        if (allRoutes == null) return results;
 
-    public RouteSuggestionService(
-            List<Route> routes,
-            BusPathService busService,
-            MetroPathService metroService) {
-
-        this.routes = routes;
-        this.busService = busService;
-        this.metroService = metroService;
+        for (Route route : allRoutes) {
+            // Logic: Tuyến nào đi qua cả điểm ĐI và điểm ĐẾN thì gợi ý
+            if (routeHasStations(route, start, end)) {
+                results.add(route);
+            }
+        }
+        return results;
     }
 
-    public List<JourneyPlan> suggestRoute(Station start, Station end) {
-        List<JourneyPlan> result = new ArrayList<>();
-        JourneyPlan metroPlan = metroService.findJourney(start, end);
-        if (metroPlan != null) {
-            result.add(metroPlan);
-        }
-        JourneyPlan mixedPlan =
-                busService.findBusMetroBusJourney(start, end);
-        if (mixedPlan != null) {
-            result.add(mixedPlan);
-        }
+    private boolean routeHasStations(Route r, Station start, Station end) {
+        if (r.getRouteParts() == null) return false;
+        boolean hasStart = false, hasEnd = false;
 
-        return result;
+        for (RoutePart part : r.getRouteParts()) {
+            // Kiểm tra trạm đi
+            if (part.getStartStation().getId().equals(start.getId()) || 
+                part.getEndStation().getId().equals(start.getId())) hasStart = true;
+            // Kiểm tra trạm đến
+            if (part.getStartStation().getId().equals(end.getId()) || 
+                part.getEndStation().getId().equals(end.getId())) hasEnd = true;
+        }
+        return hasStart && hasEnd;
     }
 }
