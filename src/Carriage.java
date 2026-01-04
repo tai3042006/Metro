@@ -13,7 +13,7 @@ public class Carriage {
         this.availableSeats = totalSeats; 
     }
 
-    // phương thức lấy tổng số ghế
+    
     public int getTotalSeats() {
         return this.totalSeats; 
     }

@@ -15,7 +15,7 @@ public class Route {
         this.id = id;
         this.name = name;
         this.transportType = transportType;
-        this.routePartList = new LinkedList<>(); // Khởi tạo list rỗng
+        this.routePartList = new LinkedList<>(); 
     }
 
    
@@ -28,7 +28,7 @@ public class Route {
         this.routePartList.remove(part);
     }
 
-    // --- CÁC PHƯƠNG THỨC TÍNH TOÁN (Dùng Java 8) ---
+    // --- CÁC PHƯƠNG THỨC TÍNH TOÁN (Java 8)---
 
    
     public double getTotalDistance_Km() {
@@ -75,7 +75,7 @@ public class Route {
         return stations;
     }
 
-    // Getter cơ bản khác
+    
     public String getId() { return id; }
     public String getName() { return name; }
     public LinkedList<RoutePart> getRouteParts() {

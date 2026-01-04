@@ -14,7 +14,7 @@ public class MetroPathServiceImpl implements MetroPathService {
 
         for (Route route : routes) {
 
-            // chỉ xét METRO
+          
             if (route.getType() != TransportType.METRO) {
                 continue;
             }
@@ -23,7 +23,7 @@ public class MetroPathServiceImpl implements MetroPathService {
             int startIndex = stations.indexOf(start);
             int endIndex = stations.indexOf(end);
 
-            // check if valid route or right direction
+          
             if (startIndex >= 0 && endIndex >= 0 && startIndex < endIndex) {
 
                 JourneyPlan plan = new JourneyPlan();
@@ -39,7 +39,7 @@ public class MetroPathServiceImpl implements MetroPathService {
                 return plan;
             }
         }
-        // if no route found, return null
+       
         return null;
     }
 }

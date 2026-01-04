@@ -10,101 +10,68 @@ public class Metro {
 
     public static void main(String[] args) {
         System.out.println("==========================================================================");
-        System.out.println("   DO AN CUOI KY: HE THONG QUAN LY VE METRO & BUS (CAP NHAT BUS 33, 53)");
+        System.out.println("   DO AN CUOI KY: HE THONG QUAN LY VE METRO & BUS ");
         System.out.println("   SINH VIEN THUC HIEN:");
         System.out.println("   1. VO BA MINH QUAN     - MSSV: 24130253");
         System.out.println("   2. TRAN NGUYEN ANH TAI - MSSV: 24130270");
         System.out.println("==========================================================================\n");
 
         // =======================================================================
-        // [1] KHOI TAO HA TANG (INFRASTRUCTURE) - DU LIEU THUC TE HCM
+        // [1] (INFRASTRUCTURE)
         // =======================================================================
-        System.out.println("--- [1. INFRASTRUCTURE] KHOI TAO BAN DO METRO LINE 1 & HE THONG BUS ---");
+        System.out.println("--- [1. INFRASTRUCTURE] KHOI TAO HA TANG ---");
 
-        // 1.1 Danh sách Trạm Metro (Day du tu S1 den S14)
+        // 1.1 Danh sách Trạm Metro & Bus
         Station s1_BenThanh = new Station("S01", "Ga Ben Thanh");
         Station s2_NhaHat   = new Station("S02", "Ga Nha Hat TP");
         Station s3_BaSon    = new Station("S03", "Ga Ba Son");
-        Station s4_VanThanh = new Station("S04", "Ga Van Thanh");
         Station s5_TanCang  = new Station("S05", "Ga Tan Cang");
-        Station s6_ThaoDien = new Station("S06", "Ga Thao Dien");
-        Station s7_AnPhu    = new Station("S07", "Ga An Phu");
-        Station s8_RachChiec= new Station("S08", "Ga Rach Chiec");
-        Station s9_PhuocLong= new Station("S09", "Ga Phuoc Long");
-        Station s10_BinhThai= new Station("S10", "Ga Binh Thai");
         Station s11_ThuDuc  = new Station("S11", "Ga Thu Duc");
         Station s12_KhuCNC  = new Station("S12", "Ga Khu Cong Nghe Cao"); 
-        Station s13_SuoiTien= new Station("S13", "Ga Suoi Tien"); // HUB Giao thông chính
-        Station s14_BenXeMienDong = new Station("S14", "Ga BX Mien Dong Moi");
-
-        // 1.2 Các trạm Bus (Kết nối trường học/KTX)
+        Station s13_SuoiTien= new Station("S13", "Ga Suoi Tien"); 
+        
         Station ktxKhuA = new Station("BUS_01", "KTX Khu A");
         Station ktxKhuB = new Station("BUS_02", "KTX Khu B");
-        Station dhGiaoThong = new Station("BUS_03", "DH Giao Thong Van Tai");
-        Station langDaiHoc = new Station("BUS_04", "Lang Dai Hoc Thu Duc");
 
-        // 1.3 Phương tiện 
+        // 1.2 Phương tiện
         Train metroTrain = new Train("TR_M1", true, new Locomotive("LOCO_01", "Electric"));
         
-        Bus bus19 = new Bus("BS_19", "51B-1919", 60); // Bus cu
-        Bus bus33 = new Bus("BS_33", "51B-3333", 55); // [MOI] Bus 33 (Lang DH - Suoi Tien)
-        Bus bus53 = new Bus("BS_53", "51B-5353", 50); // [MOI] Bus 53 (KTX A - Suoi Tien)
-        Bus bus08 = new Bus("BS_08", "51B-0808", 45); 
+        Bus bus19 = new Bus("BS_19", "51B-1919", 60); 
+        Bus bus33 = new Bus("BS_33", "51B-3333", 55); 
+        Bus bus53 = new Bus("BS_53", "51B-5353", 50); 
 
-        // 1.4 THIẾT LẬP TUYẾN ĐƯỜNG (ROUTES)
-        
-        // --- A. TUYẾN METRO SỐ 1 ---
+        // 1.3 THIẾT LẬP TUYẾN ĐƯỜNG (ROUTES)
+
+        // --- A. TUYẾN METRO SỐ 1 (Ben Thanh - Suoi Tien) ---
         Route metroLine1 = new Route("R_M1", "Metro Line 1 (Ben Thanh - Suoi Tien)", TransportType.METRO);
-        // Add full tuyến
         metroLine1.addRoutePart(new RoutePart(s1_BenThanh, s2_NhaHat, 0.8, 2.0));
         metroLine1.addRoutePart(new RoutePart(s2_NhaHat, s3_BaSon, 1.2, 3.0));
-        metroLine1.addRoutePart(new RoutePart(s3_BaSon, s4_VanThanh, 1.5, 3.0));
-        metroLine1.addRoutePart(new RoutePart(s4_VanThanh, s5_TanCang, 1.0, 2.0));
-        metroLine1.addRoutePart(new RoutePart(s5_TanCang, s6_ThaoDien, 1.5, 3.0));
-        metroLine1.addRoutePart(new RoutePart(s6_ThaoDien, s7_AnPhu, 2.0, 4.0));
-        metroLine1.addRoutePart(new RoutePart(s7_AnPhu, s8_RachChiec, 2.5, 5.0));
-        metroLine1.addRoutePart(new RoutePart(s8_RachChiec, s9_PhuocLong, 1.5, 3.0));
-        metroLine1.addRoutePart(new RoutePart(s9_PhuocLong, s10_BinhThai, 1.8, 4.0));
-        metroLine1.addRoutePart(new RoutePart(s10_BinhThai, s11_ThuDuc, 2.0, 4.0));
+        metroLine1.addRoutePart(new RoutePart(s3_BaSon, s5_TanCang, 2.5, 5.0)); // Gộp đoạn giữa
+        metroLine1.addRoutePart(new RoutePart(s5_TanCang, s11_ThuDuc, 6.0, 10.0));
         metroLine1.addRoutePart(new RoutePart(s11_ThuDuc, s12_KhuCNC, 2.5, 5.0)); 
         metroLine1.addRoutePart(new RoutePart(s12_KhuCNC, s13_SuoiTien, 2.0, 4.0));
         cityRoutes.add(metroLine1);
 
-        // --- B. TUYẾN BUS 19 (Suối Tiên <-> KTX B) ---
-        Route rBus19 = new Route("R_B19", "Bus 19 (Ben Thanh - KTX B)", TransportType.BUS);
-        rBus19.addRoutePart(new RoutePart(s13_SuoiTien, ktxKhuB, 5.0, 15.0));
-        rBus19.addRoutePart(new RoutePart(ktxKhuB, s13_SuoiTien, 5.0, 15.0));
-        cityRoutes.add(rBus19);
-
-        // --- C. TUYẾN BUS 33 (Suối Tiên <-> Làng ĐH/KTX B) ---
-        // Bus 33 hỗ trợ giảm tải cho Bus 19
-        Route rBus33 = new Route("R_B33", "Bus 33 (Suoi Tien - Lang DH/KTX B)", TransportType.BUS);
+        // --- B. TUYẾN BUS 33 (Suối Tiên <-> KTX B) ---
+        Route rBus33 = new Route("R_B33", "Bus 33 (Suoi Tien - KTX B)", TransportType.BUS);
         rBus33.addRoutePart(new RoutePart(s13_SuoiTien, ktxKhuB, 5.0, 15.0)); 
         rBus33.addRoutePart(new RoutePart(ktxKhuB, s13_SuoiTien, 5.0, 15.0));
         cityRoutes.add(rBus33);
 
-        // --- D. TUYẾN BUS 53 (Suối Tiên <-> KTX Khu A) ---
-        // Kết nối KTX A với Metro
+        // --- C. TUYẾN BUS 53 (Suối Tiên <-> KTX Khu A) ---
         Route rBus53 = new Route("R_B53", "Bus 53 (Suoi Tien - KTX Khu A)", TransportType.BUS);
         rBus53.addRoutePart(new RoutePart(s13_SuoiTien, ktxKhuA, 4.5, 12.0));
         rBus53.addRoutePart(new RoutePart(ktxKhuA, s13_SuoiTien, 4.5, 12.0));
         cityRoutes.add(rBus53);
 
-        System.out.println("-> Da khoi tao he thong: 14 Tram Metro & 4 Tuyen Bus (19, 33, 53, 08).");
-        System.out.println("   (Da them Bus 33, 53 de tang lua chon cho sinh vien)");
-
+        System.out.println("-> Da khoi tao he thong: Metro Line 1 & Bus (19, 33, 53).");
 
         // =======================================================================
-        // [2] LICH TRINH (SCHEDULE)
+        // [2] SERVICES & SCHEDULE
         // =======================================================================
         ScheduleDaily lichTrinh = new ScheduleDaily(LocalDate.now(), ScheduleCategory.WEEKDAY, true);
-        ScheduleDetail chuyenTau = new ScheduleDetail(LocalDate.now(), LocalTime.of(5, 0), LocalTime.of(23, 0), metroTrain);
-        lichTrinh.addDetail(chuyenTau);
+        lichTrinh.addDetail(new ScheduleDetail(LocalDate.now(), LocalTime.of(5, 0), LocalTime.of(23, 0), metroTrain));
 
-
-        // =======================================================================
-        // [3] SERVICES
-        // =======================================================================
         TicketService ticketService = new TicketService();
         Revenue revenueManager = new Revenue(); 
         System.out.println("-> Services san sang.\n");
@@ -122,9 +89,20 @@ public class Metro {
         quan.topUpBalance(200000);
 
         System.out.println("  2. [ROUTING] Tim duong tu KTX B -> Ben Thanh:");
-        System.out.println("     He thong tim thay cac tuyen bus phu hop: Bus 19, Bus 33 (Moi).");
-        System.out.println("     + Chang 1: Don [Bus 33] (hoac 19) tai [KTX Khu B] -> Den [Ga Suoi Tien]");
-        System.out.println("     + Chang 2: Don [Metro 1] tai [Ga Suoi Tien] -> Den [Ga Ben Thanh]");
+        
+      
+        // Giả lập: Đi Bus 33 rồi chuyển sang Metro
+        JourneyPlan journeyOfQuan = new JourneyPlan("JP_QUAN_01", ktxKhuB, s1_BenThanh);
+        journeyOfQuan.addRoute(rBus33);     
+        journeyOfQuan.addRoute(metroLine1); 
+
+        // In ra số liệu JourneyPlan
+        System.out.println("     [SYSTEM CALCULATION] Thong tin lo trinh:");
+        System.out.println("     + Tong quang duong: " + journeyOfQuan.calculateTotalDistance() + " km");
+        System.out.println("     + Tong thoi gian:   " + journeyOfQuan.calculateTotalTime() + " phut");
+        System.out.println("     + Chi tiet chang:");
+        System.out.println("       -> Chang 1: " + rBus33.getName());
+        System.out.println("       -> Chang 2: " + metroLine1.getName());
         
         // Mua vé tháng
         Order orderQuan = new Order("ORD_Q", quan);
@@ -135,24 +113,24 @@ public class Metro {
 
         System.out.println("  3. [PAYMENT] Mua Ve Thang (Giam 50%): " + String.format("%,.0f", orderQuan.getTotalPrice()) + " VND");
 
-        // Check-in thực tế
+        // Checkin 
         System.out.println("  4. [CHECK-IN] Thuc hien hanh trinh:");
-        // Quân quyết định thử đi Bus 33 mới thêm
-        System.out.print("     -> Bus 33 tai KTX Khu B: ");
+        // Quân đi Bus 33
+        System.out.print("     -> Check-in Bus 33 tai KTX Khu B: ");
         veThang.use(LocalDateTime.now().minusMinutes(90), ktxKhuB); 
         
-        System.out.print("     -> Metro 1 tai Ga Suoi Tien: ");
+        System.out.print("     -> Check-in Metro 1 tai Ga Suoi Tien: ");
         veThang.use(LocalDateTime.now().minusMinutes(60), s13_SuoiTien); 
 
-        System.out.print("     -> Ket thuc tai Ga Ben Thanh: ");
+        System.out.print("     -> Check-out tai Ga Ben Thanh: ");
         veThang.use(LocalDateTime.now(), s1_BenThanh); 
-        System.out.println("     (Hanh trinh hoan tat - Su dung Bus 33 ket hop Metro)");
+        System.out.println("     (Hanh trinh hoan tat)");
 
 
         // =======================================================================
-        // SCENARIO 2: TRAN NGUYEN ANH TAI (WORKER - DI TU TRAM GIUA)
+        // SCENARIO 2: TRAN NGUYEN ANH TAI (WORKER)
         // =======================================================================
-        System.out.println("\n>>> SCENARIO 2: TRAN NGUYEN ANH TAI (Worker - Checkin Tram Giua)");
+        System.out.println("\n>>> SCENARIO 2: TRAN NGUYEN ANH TAI (Worker)");
         System.out.println("    [Goal]: Di tu GA KHU CONG NGHE CAO (S12) -> GA TAN CANG (S05)");
 
         Customer tai = new Customer("24130270", "Tran Nguyen Anh Tai", CustomerType.WORKER);
@@ -169,10 +147,10 @@ public class Metro {
         if(veLuot.getState() == TicketState.ACTIVE) {
             veLuot.use(LocalDateTime.now().minusMinutes(20), s12_KhuCNC);
             veLuot.setState(TicketState.USED); 
-            System.out.println(" -> Cong mo. Bat dau di chuyen.");
+            System.out.println(" -> Bat dau di chuyen.");
         }
 
-        // Check-in Gian lận
+        // Checkin Gian lận
         System.out.print("  3. [CHECK-IN 2] Thu dung lai ve cu tai Ga Tan Cang: ");
         if(veLuot.getState() == TicketState.USED) {
             System.out.println(" -> [DENIED] HE THONG TU CHOI! (Ticket Used)");
@@ -186,6 +164,7 @@ public class Metro {
         // =======================================================================
         System.out.println("\n>>> SCENARIO 3: AUDIT & REPORTING");
         
+       
         quan.addTransaction(new Transaction("TRX_01", 200000, LocalDateTime.now().minusHours(2), TransactionType.TOP_UP));
         quan.addTransaction(new Transaction("TRX_02", -100000, LocalDateTime.now().minusHours(1), TransactionType.PAYMENT)); 
 
@@ -210,6 +189,6 @@ public class Metro {
         System.out.println("  3. [STATISTICS] Ve ban ra: " + stats);
 
         System.out.println("==========================================================================");
-        System.out.println("   KET THUC CHUONG TRINH - NHOM SINH VIEN: QUAN & TAI cam on Co!");
+        System.out.println("   KET THUC CHUONG TRINH - NHOM SINH VIEN: QUAN & TAI Cam On Co ");
     }
 }

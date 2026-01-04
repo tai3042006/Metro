@@ -11,7 +11,7 @@ public class RouteSuggestionService {
         if (allRoutes == null) return results;
 
         for (Route route : allRoutes) {
-            // Logic: Tuyến nào đi qua cả điểm ĐI và điểm ĐẾN thì gợi ý
+            // Tuyến nào đi qua cả điểm ĐI và điểm ĐẾN thì gợi ý
             if (routeHasStations(route, start, end)) {
                 results.add(route);
             }

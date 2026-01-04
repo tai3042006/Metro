@@ -45,7 +45,7 @@ public class SingleRideTicket extends Ticket {
 
     @Override
     public void use(LocalDateTime time, Station station) {
-        super.use(time, station); // Ghi lịch sử
+        super.use(time, station); 
 
         // Nếu vé đang Active -> Chuyển sang Used 
         if (this.state == TicketState.ACTIVE) {

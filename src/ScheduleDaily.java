@@ -26,7 +26,7 @@ public class ScheduleDaily {
         this.details.add(detail);
     }
 
-    // 2. Hàm kiểm tra giờ (Overloading - Nạp chồng phương thức)
+    // kiểm tra giờ (Overloading )
    
     public boolean isAvailable(LocalTime time) {
         if (!this.isActive) return false;
@@ -37,7 +37,7 @@ public class ScheduleDaily {
             // Trạng thái chuyến là RUNNING (giả sử ScheduleDetail có hàm isRunning hoặc getState)
             if (time.isAfter(d.getStartTime()) && 
                 time.isBefore(d.getEndTime())) {
-                // Có thể check thêm d.getState() == ScheduleState.RUNNING 
+                //  d.getState() == ScheduleState.RUNNING 
                 return true;
             }
         }

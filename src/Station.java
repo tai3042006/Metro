@@ -2,7 +2,7 @@ public class Station {
     private String id;
     private String name;
 
-    // Constructor mặc định 
+    // Constructor 
     public Station() {}
 
     public Station(String id, String name) {

@@ -14,11 +14,6 @@ public class Payment {
         this.isSuccessful = true;
     }
 
-    /**
-     * @param id Mã giao dịch
-     * @param amount Số tiền
-     * @param paymentMethod Phương thức thanh toán
-     */
     public Payment(String id, double amount, String paymentMethod) {
         this(); 
         this.id = id;

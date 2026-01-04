@@ -30,7 +30,7 @@ public class Customer {
     }
 
     
-     // Nếu là Student
+     // Student
     public void setStudentCard(StudentCard studentCard) {
         this.studentCard = studentCard;
         if (studentCard != null) {
@@ -91,6 +91,6 @@ public class Customer {
 
     public List<Order> getOrderHistory() { return orderHistory; }
     
-    // Getter cho Transaction History
+    
     public List<Transaction> getTransactionHistory() { return transactionHistory; }
 }

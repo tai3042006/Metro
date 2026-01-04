@@ -9,14 +9,13 @@ public class JourneyPlan {
     private double totalDistance;
     private double totalTime;
 
-    // 1. Constructor 
+     
     public JourneyPlan() {
         this.planId = UUID.randomUUID().toString();
         this.routes = new ArrayList<>(); 
     }
 
-    // 2.
-    // Main gọi: new JourneyPlan("JP01", ktxKhuB, benThanh);
+   
     public JourneyPlan(String planId, Station startStation, Station endStation) {
         this.planId = planId;
         this.startStation = startStation;
@@ -24,7 +23,7 @@ public class JourneyPlan {
         this.routes = new ArrayList<>();
     }
 
-    // 3. Phương thức thêm Route 
+ 
     public void addRoute(Route route) {
         if (this.routes == null) {
             this.routes = new ArrayList<>();
@@ -59,7 +58,7 @@ public class JourneyPlan {
         return routes;
     }
 
-    // --- TÍNH TOÁN (LOGIC) ---
+    // --- TÍNH TOÁN  ---
 
     public double calculateTotalDistance() {
         double distance = 0.0;

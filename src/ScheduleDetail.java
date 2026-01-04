@@ -9,11 +9,11 @@ public class ScheduleDetail {
     private Vehicle vehicle;   
     private ScheduleState state;
 
-    // 1. Constructor rỗng
+    
     public ScheduleDetail() {
     }
 
-    // 2. Constructor đầy đủ 
+    
     public ScheduleDetail(LocalDate date, LocalTime timeStart, LocalTime timeEnd, ScheduleState state) {
         this.date = date;
         this.timeStart = timeStart;

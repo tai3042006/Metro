@@ -10,7 +10,7 @@ public class BusPathServiceImpl implements BusPathService {
         this.metroService = metroService;
         this.routes = routes;
     }
-//only bus
+
     @Override
     public JourneyPlan findBusJourney(Station start, Station end) {
 
@@ -38,7 +38,7 @@ public class BusPathServiceImpl implements BusPathService {
         return null;
     }
 
-//bus then metro and bus
+
     @Override
     public JourneyPlan findBusMetroBusJourney(Station start, Station end) {
 

@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 
 public class TicketService {
 
-    // Định nghĩa bảng giá cơ bản (Giá chưa giảm)
+    // Định nghĩa bảng giá cơ bản 
     private static final double PRICE_SINGLE_RIDE = 10000.0; // 10k
     private static final double PRICE_DAILY       = 30000.0; // 30k
     private static final double PRICE_MONTHLY     = 200000.0; // 200k
@@ -34,7 +34,7 @@ public class TicketService {
         double finalPrice = calculatePrice(order.getCustomer(), PRICE_DAILY);
         
         DailyTicket ticket = new DailyTicket(generateTicketId("D"), finalPrice);
-        order.addTicket(ticket); // Thêm vé vào đơn hàng
+        order.addTicket(ticket);
         
         System.out.println("Đã phát hành Vé Ngày. Giá: " + finalPrice);
         return ticket;

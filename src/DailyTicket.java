@@ -13,17 +13,17 @@ public class DailyTicket extends Ticket {
     
     public DailyTicket(String id, double price) {
         super(id, price);
-        this.validDate = LocalDate.now(); // Gán ngày hiệu lực là hôm nay
+        this.validDate = LocalDate.now(); 
     }
 
     @Override
     public boolean isValid(LocalDateTime time, Station station) {
-        // Kiểm tra trạng thái
+        
         if (this.state != TicketState.ACTIVE) {
             return false;
         }
 
-        // Kiểm tra ngày: convert thời gian quẹt thẻ sang LocalDate và so sánh
+        // Kiểm tra ngày: 
         LocalDate usageDate = time.toLocalDate();
         return usageDate.isEqual(this.validDate);
     }

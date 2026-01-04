@@ -31,9 +31,9 @@ public abstract class Ticket {
     public void use(LocalDateTime time, Station station) {
         // 1. Kiểm tra vé có hợp lệ không
         if (isValid(time, station)) {
-            
-            
-            // Tạo ID ngẫu nhiên cho lượt dùng này
+
+
+            // ID ngẫu nhiên cho lượt dùng này
             String usageId = UUID.randomUUID().toString();
             
             // new TicketUsage(String id, LocalDateTime time, Station station)
