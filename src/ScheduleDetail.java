@@ -1,25 +1,33 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 public class ScheduleDetail {
    
     private LocalDate date;
     private LocalTime timeStart;
     private LocalTime timeEnd;
-    private Vehicle vehicle;
+    private Vehicle vehicle;   
     private ScheduleState state;
 
- 
+    // 1. Constructor rỗng
     public ScheduleDetail() {
     }
 
-  
+    // 2. Constructor đầy đủ 
     public ScheduleDetail(LocalDate date, LocalTime timeStart, LocalTime timeEnd, ScheduleState state) {
         this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.state = state;
+    }
+
+   
+    public ScheduleDetail(LocalDate date, LocalTime timeStart, LocalTime timeEnd, Vehicle vehicle) {
+        this.date = date;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.vehicle = vehicle;
+        this.state = ScheduleState.RUNNING; 
     }
 
     // --- GETTER & SETTER ---
@@ -32,7 +40,13 @@ public class ScheduleDetail {
         this.date = date;
     }
 
+   
     public LocalTime getTimeStart() {
+        return timeStart;
+    }
+    
+   
+    public LocalTime getStartTime() {
         return timeStart;
     }
 
@@ -41,6 +55,11 @@ public class ScheduleDetail {
     }
 
     public LocalTime getTimeEnd() {
+        return timeEnd;
+    }
+    
+   
+    public LocalTime getEndTime() {
         return timeEnd;
     }
 
@@ -64,19 +83,23 @@ public class ScheduleDetail {
         this.state = state;
     }
 
-    // Tính khoảng thời gian di chuyển (End - Start) và trả về dưới dạng LocalTime
+    // Tính khoảng thời gian di chuyển (End - Start)
     public LocalTime getTravelTime() {
         if (timeStart != null && timeEnd != null) {
-            //  lấy giờ kết thúc trừ đi giờ bắt đầu
-            return timeEnd.minusHours(timeStart.getHour())
-                          .minusMinutes(timeStart.getMinute());
+            // Logic trừ giờ phút đơn giản để hiển thị
+            int hour = timeEnd.getHour() - timeStart.getHour();
+            int minute = timeEnd.getMinute() - timeStart.getMinute();
+            if (minute < 0) {
+                minute += 60;
+                hour--;
+            }
+            return LocalTime.of(hour, minute);
         }
-        return LocalTime.of(0, 0); // Trả về 00:00 nếu chưa có dữ liệu
+        return LocalTime.of(0, 0); 
     }
 
-    //  Hàm isRunning
+    // Hàm isRunning check Enum
     public boolean isRunning() {
-        // Kiểm tra trạng thái trong Enum
         return this.state == ScheduleState.RUNNING;
     }
 }

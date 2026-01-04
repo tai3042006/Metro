@@ -2,24 +2,25 @@ import java.util.LinkedList;
 import java.util.List;
 
 
-public class Train {
+public class Train extends Vehicle {
 
-    private String id; 
     private String name;
-    private boolean active;
+   
     private Locomotive locomotive;
     private List<Carriage> carriageList;
 
     public Train() {
+        super("", true); 
         this.carriageList = new LinkedList<>();
-        this.active = true;
     }
 
    
     public Train(String name, boolean active, Locomotive locomotive) {
-        this.id = name; 
+      
+        // Giả sử name cũng là ID của tàu
+        super(name, active); 
+        
         this.name = name;
-        this.active = active;
         this.locomotive = locomotive;
         this.carriageList = new LinkedList<>();
     }
@@ -34,17 +35,14 @@ public class Train {
         this.name = name;
     }
     
+   
     
-    public String getId() {
-        return id;
-    }
-
     public boolean isActive() {
-        return active;
+        return this.status; 
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        this.status = active;
     }
 
     public Locomotive getLocomotive() {
@@ -63,22 +61,10 @@ public class Train {
         this.carriageList.add(carriage);
     }
 
-    
-    // Nâng cấp: Dùng Stream API để tính tổng 
+   
     public int getTotalCapacity() {
         return carriageList.stream()
                 .mapToInt(Carriage::getTotalSeats) 
                 .sum();
     }
-    
-    // Java 7 cũ :
-    /*
-    public int getTotalCapacity() {
-        int total = 0;
-        for (Carriage c : carriageList) {
-            total += c.getTotalSeats(); // Đã sửa getCapacity -> getTotalSeats
-        }
-        return total;
-    }
-    */
 }

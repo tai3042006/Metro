@@ -1,58 +1,53 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime; 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
 
-    
     private String id;
     private List<Ticket> listOfTickets;
     private OrderStatus status;
     private double totalPrice;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt; 
     private Payment payment;
     private Customer customer; 
 
-    
     public Order() {
         this.listOfTickets = new ArrayList<>();
-        this.createdAt = LocalDate.now();
+        this.createdAt = LocalDateTime.now(); 
         this.status = OrderStatus.PENDING;
         this.totalPrice = 0.0;
     }
 
-    /**
-     * Constructor có tham số 
-     * @param id Mã đơn hàng
-     * @param customer Khách hàng mua vé
-     */
+ 
     public Order(String id, Customer customer) {
         this(); 
         this.id = id;
         this.customer = customer;
         
-        
         if (customer != null) {
-            customer.addOrder(this);
+            // Giả sử Customer có hàm addOrder 
+            // customer.addOrder(this); 
         }
     }
 
-  
     public void addTicket(Ticket ticket) {
+        if (this.listOfTickets == null) {
+            this.listOfTickets = new ArrayList<>();
+        }
         this.listOfTickets.add(ticket);
         updateTotalPrice();
     }
 
-    
     public void updateTotalPrice() {
         if (this.listOfTickets != null) {
             this.totalPrice = this.listOfTickets.stream()
-                                  .mapToDouble(Ticket::getPrice)
-                                  .sum();
+                                              .mapToDouble(Ticket::getPrice)
+                                              .sum();
         }
     }
 
-   
     public boolean validateOrder() {
         boolean hasTickets = this.listOfTickets != null && !this.listOfTickets.isEmpty();
         boolean isNotCancelled = this.status != OrderStatus.CANCELLED;
@@ -64,7 +59,7 @@ public class Order {
         System.out.println("Order " + this.id + " has been cancelled.");
     }
 
-    // --- Getters & Setters 
+    // --- Getters & Setters ---
     
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
@@ -78,16 +73,19 @@ public class Order {
     public OrderStatus getStatus() { return status; }
     public void setStatus(OrderStatus status) { this.status = status; }
     
-    public LocalDate getCreatedAt() { return createdAt; }
+   
+    public LocalDateTime getCreatedAt() { return createdAt; }
 
     public Payment getPayment() { return payment; }
     public void setPayment(Payment payment) { this.payment = payment; }
 
-    public List<Ticket> getListOfTickets() { return listOfTickets; }
+   
+    public List<Ticket> getListOfTicket() { 
+        return listOfTickets; 
+    }
 
     @Override
     public String toString() {
-        
         return "Order{" +
                 "id='" + id + '\'' +
                 ", customer=" + (customer != null ? customer.getName() : "null") +

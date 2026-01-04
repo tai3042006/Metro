@@ -1,17 +1,21 @@
 public class Carriage {
     private String id;
     private int numberOfSeats;
-    private int availableSeats;
+    private int totalSeats;
+   
+    private int availableSeats; 
 
-    public Carriage(String id, int numberOfSeats) {
+    public Carriage(String id, int numberOfSeats, int totalSeats) {
         this.id = id;
         this.numberOfSeats = numberOfSeats;
-        this.availableSeats = numberOfSeats; // Mặc định lúc mới tạo xe thì số ghế trống = tổng số ghế
+        this.totalSeats = totalSeats;
+    
+        this.availableSeats = totalSeats; 
     }
 
     // phương thức lấy tổng số ghế
     public int getTotalSeats() {
-        return this.numberOfSeats;
+        return this.totalSeats; 
     }
     
     // Getter id
@@ -19,7 +23,11 @@ public class Carriage {
         return id; 
     }
 
-    // Getter/Setter cho availableSeats )
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    // Getter/Setter cho availableSeats 
     public int getAvailableSeats() {
         return availableSeats;
     }

@@ -6,16 +6,21 @@ public class TicketUsage {
     private LocalDateTime usedTime;
     private Station usedStation; 
 
-   
     public TicketUsage() {
     }
 
-    
+   
     public TicketUsage(Station usedStation, LocalDateTime usedTime) {
-        // Tự sinh ID ngẫu nhiên dựa trên thời gian thực
         this.usageId = "USAGE_" + System.nanoTime(); 
         this.usedStation = usedStation;
         this.usedTime = usedTime;
+    }
+
+   
+    public TicketUsage(String usageId, LocalDateTime usedTime, Station usedStation) {
+        this.usageId = usageId;
+        this.usedTime = usedTime;
+        this.usedStation = usedStation;
     }
 
     // --- Getters & Setters ---

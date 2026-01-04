@@ -2,43 +2,42 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID; 
 
 public abstract class Ticket {
 
-    protected String ticketId;
+   
+    protected String id;
     protected double price;
     protected TicketState state;
-    protected LocalDate issueDate; // Ngày phát hành
-    protected List<TicketUsage> usageHistory; // Lưu lịch sử dùng vé
+    protected LocalDate issueDate; 
+    protected List<TicketUsage> usageHistory; 
 
-    
     public Ticket() {
         this.usageHistory = new ArrayList<>();
         this.issueDate = LocalDate.now();
         this.state = TicketState.ACTIVE;
     }
 
-    
-    public Ticket(String ticketId, double price) {
+    public Ticket(String id, double price) {
         this(); 
-        this.ticketId = ticketId;
+        this.id = id; 
         this.price = price;
     }
 
-    
     public abstract boolean isValid(LocalDateTime time, Station station);
 
-    /**
-     * Sử dụng vé
-     * @param time Thời gian quẹt thẻ
-     * @param station Trạm quẹt thẻ
-     */
+   
     public void use(LocalDateTime time, Station station) {
         // 1. Kiểm tra vé có hợp lệ không
         if (isValid(time, station)) {
             
-           
-            TicketUsage usage = new TicketUsage(station, time);
+            
+            // Tạo ID ngẫu nhiên cho lượt dùng này
+            String usageId = UUID.randomUUID().toString();
+            
+            // new TicketUsage(String id, LocalDateTime time, Station station)
+            TicketUsage usage = new TicketUsage(usageId, time, station);
             
             this.usageHistory.add(usage);
             System.out.println("Check-in thành công tại trạm: " + station.getName());
@@ -48,8 +47,10 @@ public abstract class Ticket {
     }
 
     // --- Getters & Setters ---
-    public String getTicketId() { return ticketId; }
-    public void setTicketId(String ticketId) { this.ticketId = ticketId; }
+    
+   
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
     
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }

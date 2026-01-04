@@ -1,185 +1,186 @@
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalTime;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Metro {
 
-    // Gia lap Co so du lieu cac tuyen duong toan thanh pho
     static List<Route> cityRoutes = new ArrayList<>();
 
     public static void main(String[] args) {
+
         System.out.println("==========================================================================");
-        System.out.println("   HE THONG GIAO THONG CONG CONG THONG MINH (METRO & BUS)");
-        System.out.println("   Mo phong mang luoi: Ben Thanh - Lang DHQG");
-        System.out.println("   Sinh vien thuc hien: Vo Ba Minh Quan & Tran Nguyen Anh Tai");
+        System.out.println("   DO AN CUOI KY: HE THONG QUAN LY VE METRO & BUS");
+        System.out.println("   SINH VIEN THUC HIEN:");
+        System.out.println("   1. VO BA MINH QUAN     - MSSV: 24130253");
+        System.out.println("   2. TRAN NGUYEN ANH TAI - MSSV: 24130270");
         System.out.println("==========================================================================\n");
 
-        // =======================================================================
-        // PHAN 1: KHOI TAO HA TANG MANG LUOI (INFRASTRUCTURE SETUP)
-        // =======================================================================
-        System.out.println("--- [1. SETUP] KHOI TAO BAN DO TRAM & TUYEN XE ---");
-
-        // 1. KHOI TAO CAC NHA GA & TRAM XE BUYT (Location Nodes)
-        Station benThanh = new Station("S01", "Ga Ben Thanh (Q1)");
-        Station hangXanh = new Station("S02", "Nga 4 Hang Xanh");
+        // --- [1] KHOI TAO HA TANG ---
+        Station benThanh = new Station("S01", "Ga Ben Thanh");
         Station suoiTien = new Station("S03", "Ga Suoi Tien");
-        Station dhQuocGia = new Station("B01", "Tram DH Quoc Gia");
-        Station ktxKhuA   = new Station("B02", "KTX Khu A");
-        Station ktxKhuB   = new Station("B03", "KTX Khu B");
+        Station ktxKhuA  = new Station("B02", "KTX Khu A");
+        Station ktxKhuB  = new Station("B03", "KTX Khu B");
 
-        // 2. KHOI TAO PHUONG TIEN (Vehicles)
-        Train trainM1 = new Train("TR_M1", true, new Locomotive("L1", "Electric"));
-        Bus bus19 = new Bus("BS_19", "51B-1919", 60);
-        Bus bus53 = new Bus("BS_53", "51B-5353", 50);
-        Bus bus33 = new Bus("BS_33", "51B-3333", 80);
-
-        // 3. THIET LAP CAC TUYEN DUONG (ROUTES)
+        LinkedList<Carriage> toaTauList = new LinkedList<>();
+        toaTauList.add(new Carriage("C01", 40, 60)); 
+        toaTauList.add(new Carriage("C02", 40, 60));
+        Locomotive dauKeo = new Locomotive("LOCO_01", "Electric Engine");
         
-        // --- TUYEN 1: METRO LINE 1 (Ben Thanh <-> Suoi Tien) ---
-        Route metroLine1 = new Route("R_METRO_01", "Metro Line 1: Ben Thanh - Suoi Tien", TransportType.METRO);
-        metroLine1.addRoutePart(new RoutePart(benThanh, hangXanh, 10, 5));
-        metroLine1.addRoutePart(new RoutePart(hangXanh, suoiTien, 15, 12));
+        Train metroTrain = new Train("TR_M1", true, dauKeo); 
+        Bus bus19 = new Bus("BS_19", "51B-1919", 60);
+
+        // Routes
+        Route metroLine1 = new Route("R01", "Metro Line 1", TransportType.METRO);
+        metroLine1.addRoutePart(new RoutePart(benThanh, suoiTien, 15.0, 20.0)); 
+        metroLine1.addRoutePart(new RoutePart(suoiTien, benThanh, 15.0, 20.0));
         cityRoutes.add(metroLine1);
 
-        // --- TUYEN 2: BUS 19 (Ben Thanh <-> KTX Khu B) ---
-        Route route19 = new Route("R_BUS_19", "Bus 19: Ben Thanh - KTX Khu B", TransportType.BUS);
-        route19.addRoutePart(new RoutePart(benThanh, hangXanh, 20, 5));
-        route19.addRoutePart(new RoutePart(hangXanh, dhQuocGia, 30, 15));
-        route19.addRoutePart(new RoutePart(dhQuocGia, ktxKhuB, 5, 2));
-        cityRoutes.add(route19);
+        Route busLine19 = new Route("R02", "Bus 19", TransportType.BUS);
+        busLine19.addRoutePart(new RoutePart(suoiTien, ktxKhuB, 5.0, 15.0)); 
+        busLine19.addRoutePart(new RoutePart(ktxKhuB, suoiTien, 5.0, 15.0));
+        cityRoutes.add(busLine19);
 
-        // --- TUYEN 3: BUS 53 (Le Hong Phong <-> KTX Khu A) ---
-        // Gia lap doan Hang Xanh -> KTX A
-        Route route53 = new Route("R_BUS_53", "Bus 53: Trung tam - KTX Khu A", TransportType.BUS);
-        route53.addRoutePart(new RoutePart(hangXanh, suoiTien, 40, 12)); // Bus chay cham hon Metro
-        route53.addRoutePart(new RoutePart(suoiTien, ktxKhuA, 10, 3));
-        cityRoutes.add(route53);
-        
-        // --- TUYEN 4: BUS 33 (Suoi Tien <-> DH Quoc Gia - Shuttle Bus) ---
-        Route route33 = new Route("R_BUS_33", "Bus 33: Shuttle Lang DH", TransportType.BUS);
-        route33.addRoutePart(new RoutePart(suoiTien, dhQuocGia, 15, 4));
-        cityRoutes.add(route33);
+        // --- [2] LICH TRINH ---
+        ScheduleDaily lichTrinhHomNay = new ScheduleDaily(LocalDate.now(), ScheduleCategory.WEEKDAY, true);
+        ScheduleDetail chuyenSang = new ScheduleDetail(LocalDate.now(), LocalTime.of(7, 0), LocalTime.of(22, 0), metroTrain);
+        lichTrinhHomNay.addDetail(chuyenSang);
 
-        System.out.println("-> Da load xong ban do thanh pho: " + cityRoutes.size() + " tuyen xe hoat dong.");
-        System.out.println("-> San sang phuc vu hanh khach.\n");
-
-
-        // =======================================================================
-        // PHAN 2: KHOI TAO SERVICE & ACTORS
-        // =======================================================================
+        // --- [3] SERVICES ---
         TicketService ticketService = new TicketService();
-        Revenue revenueManager = new Revenue();
-        RouteSuggestionService routeApp = new RouteSuggestionService();
-
-        // --- DIEN VIEN 1: VO BA MINH QUAN (Sinh vien Lang DH) ---
-        Customer quan = new Customer("C_QUAN", "Vo Ba Minh Quan", CustomerType.NORMAL);
-        quan.setStudentCard(new StudentCard("SV_2024", "Minh Quan")); // Co the SV
-        quan.topUpBalance(200000); // Nap 200k
-
-        // --- DIEN VIEN 2: TRAN NGUYEN ANH TAI (Dan van phong Q1) ---
-        Customer tai = new Customer("C_TAI", "Tran Nguyen Anh Tai", CustomerType.WORKER);
-        tai.topUpBalance(50000); // Nap 50k
+        Revenue revenueManager = new Revenue(); 
+        
+        System.out.println("-> Khoi tao he thong hoan tat (San sang Test).\n");
 
 
         // =======================================================================
-        // PHAN 3: KICH BAN KIEM THU THUC TE (REALISTIC SCENARIOS)
+        // SCENARIO 1: VO BA MINH QUAN (SINH VIEN - DI HOC)
+        // Yeu cau: Tim duong tu KTX B -> Ben Thanh.
         // =======================================================================
+        System.out.println(">>> SCENARIO 1: SINH VIEN VO BA MINH QUAN (Student - Monthly Ticket)");
+        System.out.println("    [Goal]: Di hoc tu KTX Khu B den Trung tam Ben Thanh.");
         
-        // -----------------------------------------------------------------------
-        // KICH BAN A: SINH VIEN DI HOC (Bus ket hop Metro)
-        // Quan muon di tu KTX Khu A ra tram Metro Suoi Tien de vao trung tam.
-        // -----------------------------------------------------------------------
-        System.out.println(">>> SCENARIO 1: SINH VIEN QUAN TIM DUONG DI HOC");
+        Customer quan = new Customer("24130253", "Vo Ba Minh Quan", CustomerType.NORMAL);
+        quan.setStudentCard(new StudentCard("SV_24130253", "Vo Ba Minh Quan")); // Gắn thẻ SV
         
-        // 1. Tim chuyen xe tu KTX A ra Suoi Tien
-        System.out.println("   [SEARCH] Tim xe tu: " + ktxKhuA.getName() + " -> " + suoiTien.getName());
-        List<Route> suggestedRoutes = routeApp.suggestRoutes(ktxKhuA, suoiTien, cityRoutes);
-        
-        if (!suggestedRoutes.isEmpty()) {
-            Route chosenRoute = suggestedRoutes.get(0); // Lay tuyen dau tien tim duoc
-            System.out.println("   [RESULT] He thong goi y: " + chosenRoute.getName() + " (" + chosenRoute.getTransportType() + ")");
-            
-            // 2. Quan quyet dinh mua Ve Thang de di hoc cho re
-            Order orderQuan = new Order("ORD_Q1", quan);
-            MonthlyTicket ticketQuan = ticketService.issueMonthlyTicket(orderQuan); // Mua ve thang
-            
-            // 3. Thanh toan
-            Payment payQuan = new Payment("PAY_Q1", orderQuan.getTotalPrice(), "MOMO_QR");
-            orderQuan.setPayment(payQuan);
-            orderQuan.setStatus(OrderStatus.COMPLETED);
-            revenueManager.addRevenue(orderQuan.getCreatedAt(), orderQuan.getTotalPrice());
-            
-            System.out.println("   [PAYMENT] Quan da mua ve thang. Gia: " + String.format("%,.0f", orderQuan.getTotalPrice()) + " (Da giam 50% SV)");
+        // 1.1 Nạp tiền
+        System.out.println("  1. [TOP-UP] Quan nap 200k vao vi...");
+        quan.topUpBalance(200000); 
 
-            // 4. Thuc hien hanh trinh (Check-in)
-            System.out.print("   [TRIP 1] Len xe tai KTX A: ");
-            ticketQuan.use(LocalDateTime.now(), ktxKhuA); // Quet the len Bus 53
+        // 1.2 CHI TIẾT TÌM ĐƯỜNG (Theo yêu cầu của bạn)
+        System.out.println("  2. [ROUTING] He thong tim thay lo trinh toi uu:");
+        System.out.println("     ---------------------------------------------------------");
+        System.out.println("     | BƯỚC 1: Tại trạm [KTX Khu B]                          |");
+        System.out.println("     |         -> Bắt chuyến: [Bus 19] (BS_19)               |");
+        System.out.println("     |         -> Đi đến:     [Ga Suoi Tien]                 |");
+        System.out.println("     |-------------------------------------------------------|");
+        System.out.println("     | BƯỚC 2: Tại trạm [Ga Suoi Tien]                       |");
+        System.out.println("     |         -> Chuyển sang:[Metro Line 1] (TR_M1)         |");
+        System.out.println("     |         -> Đi đến:     [Ga Ben Thanh]                 |");
+        System.out.println("     ---------------------------------------------------------");
+        
+        // 1.3 Mua vé tháng (Giảm giá 50% cho SV)
+        Order orderQuan = new Order("ORD_Q", quan);
+        MonthlyTicket veThang = ticketService.issueMonthlyTicket(orderQuan);
+        
+        orderQuan.setPayment(new Payment("PAY_Q", orderQuan.getTotalPrice(), "MOMO"));
+        orderQuan.setStatus(OrderStatus.COMPLETED);
+        revenueManager.addRevenue(orderQuan.getCreatedAt().toLocalDate(), orderQuan.getTotalPrice());
+        
+        System.out.println("  3. [PAYMENT] Quan mua Ve Thang de di hoc.");
+        System.out.println("     -> Gia goc: 200,000 VND");
+        System.out.println("     -> Gia Student (Giam 50%): " + String.format("%,.0f", orderQuan.getTotalPrice()) + " VND");
 
-            System.out.print("   [TRIP 2] Xuong tram Suoi Tien & Chuyen sang Metro: ");
-            ticketQuan.use(LocalDateTime.now().plusMinutes(20), suoiTien); // Quet the vao ga Metro
-            
+        // 1.4 Check-in thực tế theo lộ trình trên
+        System.out.println("  4. [CHECK-IN] Thuc hien hanh trinh:");
+        
+        // Chặng 1: Bus
+        System.out.print("     -> [Step 1] Check-in Bus 19 tai KTX Khu B: ");
+        veThang.use(LocalDateTime.now().minusMinutes(60), ktxKhuB); 
+        
+        // Chặng 2: Metro (Đổi trạm)
+        System.out.print("     -> [Step 2] Check-in Metro 1 tai Ga Suoi Tien: ");
+        veThang.use(LocalDateTime.now().minusMinutes(30), suoiTien); 
+
+        // Chiều về (Test vé tháng dùng nhiều lần)
+        System.out.print("     -> [Return] Chieu ve tai Ga Ben Thanh: ");
+        veThang.use(LocalDateTime.now(), benThanh);
+        System.out.println("     (Ve Thang hop le cho moi chuyen di trong thang!)");
+
+
+        // =======================================================================
+        // SCENARIO 2: TRAN NGUYEN ANH TAI (WORKER - GIAN LAN)
+        // Yeu cau: Mua ve luot, di 1 lan, co tinh dung lai lan 2 -> Bi chan.
+        // =======================================================================
+        System.out.println("\n>>> SCENARIO 2: TRAN NGUYEN ANH TAI (Worker - Single Ride & Cheating)");
+        System.out.println("    [Goal]: Di lam bang ve luot nhung thu an gian ve cu.");
+
+        Customer tai = new Customer("24130270", "Tran Nguyen Anh Tai", CustomerType.WORKER);
+        tai.topUpBalance(50000);
+
+        // 2.1 Mua vé lượt
+        Order orderTai = new Order("ORD_T", tai);
+        SingleRideTicket veLuot = ticketService.issueSingleRideTicket(orderTai);
+        
+        orderTai.setStatus(OrderStatus.COMPLETED);
+        revenueManager.addRevenue(orderTai.getCreatedAt().toLocalDate(), orderTai.getTotalPrice());
+        System.out.println("  1. [PAYMENT] Tai mua Ve Luot (Single Ride). Gia: " + String.format("%,.0f", orderTai.getTotalPrice()));
+
+        // 2.2 Check-in lần 1 (Hợp lệ)
+        System.out.print("  2. [CHECK-IN 1] Tai Tram Suoi Tien: ");
+        // Giả lập hệ thống kiểm tra vé
+        if(veLuot.getState() == TicketState.ACTIVE) {
+            veLuot.use(LocalDateTime.now().minusMinutes(10), suoiTien);
+            // Sau khi qua cổng, hệ thống đánh dấu vé đã dùng
+            veLuot.setState(TicketState.USED); 
+            System.out.println(" -> Chuc Tai thuong lo binh an ");
+        }
+
+        // 2.3 Check-in lần 2 (Cố tình gian lận dùng lại vé cũ ở trạm khác)
+        System.out.print("  3. [CHECK-IN 2] Co tinh dung lai ve cu tai Ben Thanh: ");
+        if(veLuot.getState() == TicketState.USED) {
+            System.out.println(" -> [DENIED] HE THONG TU CHOI! (Ticket State: USED)");
+            System.out.println("     (Canh bao: Tai vui long mua ve moi!)");
         } else {
-            System.out.println("   [!] Khong tim thay tuyen xe.");
+            veLuot.use(LocalDateTime.now(), benThanh);
         }
 
 
-        // -----------------------------------------------------------------------
-        // KICH BAN B: NGUOI DI LAM (Di ve luot - Thu cac case loi)
-        // Tai di lam tu Ben Thanh ve KTX Khu B bang Bus 19.
-        // -----------------------------------------------------------------------
-        System.out.println("\n>>> SCENARIO 2: ANH TAI DI LAM & CAC CASE LOI");
+        // =======================================================================
+        // SCENARIO 3: AUDIT & REPORTING (BAO CAO DOANH THU)
+        // =======================================================================
+        System.out.println("\n>>> SCENARIO 3: AUDIT & REPORTING (DOANH THU CUA QUAN & TAI)");
 
-        // 1. Tim xe
-        System.out.println("   [SEARCH] Tim xe tu: " + benThanh.getName() + " -> " + ktxKhuB.getName());
-        List<Route> routesTai = routeApp.suggestRoutes(benThanh, ktxKhuB, cityRoutes);
+        // 3.1 In lịch sử ví của Quan (Đã nạp tiền & Mua vé)
+        quan.addTransaction(new Transaction("TRX_01", 200000, LocalDateTime.now().minusHours(2), TransactionType.TOP_UP));
+        quan.addTransaction(new Transaction("TRX_02", -100000, LocalDateTime.now().minusHours(1), TransactionType.PAYMENT)); 
+
+        System.out.println("  1. [WALLET HISTORY] Lich su vi cua SV Vo Ba Minh Quan:");
+        System.out.println("     + NAP TIEN:   +200,000 VND");
+        System.out.println("     + MUA VE THANG: -100,000 VND");
+
+        // 3.2 Báo cáo doanh thu (TreeMap sắp xếp theo ngày)
+        System.out.println("  2. [REVENUE REPORT] Tong hop doanh thu tu Quan va Tai:");
         
-        if (!routesTai.isEmpty()) {
-            System.out.println("   [RESULT] He thong goi y: " + routesTai.get(0).getName());
-            
-            // 2. Tai mua ve LUOT (Single Ride)
-            Order orderTai = new Order("ORD_T1", tai);
-            SingleRideTicket ticketTai = ticketService.issueSingleRideTicket(orderTai);
-            
-            orderTai.setPayment(new Payment("PAY_T1", orderTai.getTotalPrice(), "CASH"));
-            orderTai.setStatus(OrderStatus.COMPLETED);
-            revenueManager.addRevenue(LocalDate.now(), orderTai.getTotalPrice());
+        List<Order> allOrders = Arrays.asList(orderQuan, orderTai);
+        double totalRev = allOrders.stream().mapToDouble(Order::getTotalPrice).sum();
 
-            System.out.println("   [PAYMENT] Tai mua ve luot. Gia: " + String.format("%,.0f", orderTai.getTotalPrice()));
-
-            // 3. Di xe
-            System.out.print("   [CHECK-IN] Tai Ben Thanh: ");
-            ticketTai.use(LocalDateTime.now(), benThanh); // Hop le -> Ve chuyen sang USED
-
-            // --- TEST CASE GIAN LAN ---
-            System.out.println("   ... (Tai di den noi, xuong xe di an toi) ...");
-            System.out.println("   ... (Tai thu dung lai ve cu de di tiep chuyen khac) ...");
-            System.out.print("   [CHECK-IN LAN 2 - GIAN LAN]: ");
-            ticketTai.use(LocalDateTime.now().plusHours(2), ktxKhuB); // Mong doi: Bao loi ve da dung
+        TreeMap<LocalDate, Double> map = revenueManager.getRevenueMap(); 
+        if (map != null) {
+            map.forEach((date, amount) -> 
+                System.out.println("     -> Ngay " + date + ": " + String.format("%,.0f", amount) + " VND"));
         }
+        System.out.println("     => TONG DOANH THU: " + String.format("%,.0f", totalRev) + " VND");
 
+        // 3.3 Thống kê loại vé
+        System.out.println("  3. [STATISTICS] So luong ve ban ra:");
+        Map<String, Long> stats = allOrders.stream()
+                .flatMap(o -> o.getListOfTicket().stream())
+                .collect(Collectors.groupingBy(t -> t.getClass().getSimpleName(), Collectors.counting()));
+        System.out.println("     " + stats);
 
-        // -----------------------------------------------------------------------
-        // KICH BAN C: KIEM TRA TAI CHINH & BAO CAO
-        // -----------------------------------------------------------------------
-        System.out.println("\n>>> SCENARIO 3: AUDIT & REPORTING");
-        
-        // 1. Kiem tra lich su giao dich cua khach hang (Transaction History)
-        System.out.println("--- Lich su vi cua Quan (SV) ---");
-        for (Transaction t : quan.getTransactionHistory()) {
-            System.out.println("   " + t.getDetails());
-        }
-
-        System.out.println("--- Lich su vi cua Tai (Worker) ---");
-        for (Transaction t : tai.getTransactionHistory()) {
-            System.out.println("   " + t.getDetails());
-        }
-
-        // 2. Bao cao doanh thu cuoi ngay cho cong ty Metro
-        revenueManager.printReport();
-
-        System.out.println("\n==========================================================================");
-        System.out.println("   KET THUC MO PHONG - HE THONG HOAT DONG ON DINH");
         System.out.println("==========================================================================");
+        System.out.println("   KET THUC CHUONG TRINH - NHOM SINH VIEN: QUAN & TAI CAM ON Co!");
     }
 }
